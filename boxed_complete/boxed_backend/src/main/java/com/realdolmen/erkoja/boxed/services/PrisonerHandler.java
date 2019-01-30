@@ -18,8 +18,9 @@ public class PrisonerHandler {
     private CellService cellService;
     private DayService dayService;
     private Day currentDay;
-
     private JobRepository jobRepository;
+
+   
 
     private Integer currentDayNr;
 
@@ -27,23 +28,27 @@ public class PrisonerHandler {
     public PrisonerHandler() {
         prisonerRepository = new PrisonerRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
         cellRepository = new CellRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
-        
+        jobRepository = new JobRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
+        cellService = new CellService();
+        dayService = new DayService();
+       
     }
 
-    public PrisonerHandler(PrisonerRepository prisonerRepository, CellRepository cellRepository) {
+    public PrisonerHandler(PrisonerRepository prisonerRepository, CellRepository cellRepository, CellService cellService, DayService dayService, JobRepository jobRepository) {
         this.prisonerRepository = prisonerRepository;
         this.cellRepository = cellRepository;
+        this.cellService = cellService;
+        this.dayService = dayService;
+        this.jobRepository = jobRepository;
     }
 
     public void handlePrisoners() {
-        dayService = new DayService();
         currentDay = dayService.getCurrentDay();
         releasePrisoners();
         moveOutOfIsolation();
     }
 
     public void movePrisoners(Cell out, Cell in, Prisoner p) {
-        cellService = new CellService();
         cellService.removePrisoner(p, out);
         cellService.addPrisoner(p, in);
         p.setCell(in);
