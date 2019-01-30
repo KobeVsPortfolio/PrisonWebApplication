@@ -18,36 +18,36 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class PrisonerHandlerTest {
-    
+
     private PrisonerHandler prisonerHandler;
     Day currentDay;
     Integer currentDayNr;
-    
+
     @Mock
     PrisonerRepository prisonerRepository;
-    
+
     @Mock
     CellRepository cellRepository;
-    
+
     @Mock
     CellService cellService;
-    
+
     @Mock
     DayService dayService;
-    
+
     @Mock
     JobRepository jobRepository;
-    
+
     @Before
-    public void init(){
+    public void init() {
         prisonerHandler = new PrisonerHandler(prisonerRepository, cellRepository, cellService, dayService, jobRepository);
-    }   
-    
+    }
+
     @Ignore
-    public void testReleasePrisoners(){
+    @Test
+    public void testReleasePrisoners() {
         List<Prisoner> prisonerList = new ArrayList<>();
         Prisoner p1 = new Prisoner();
         Prisoner p2 = new Prisoner();
@@ -63,6 +63,7 @@ public class PrisonerHandlerTest {
         verify(prisonerRepository, times(1)).delete(1);
         verifyNoMoreInteractions(prisonerRepository);
     }
+
     @Test
     public void movePrisonersTest() {
         Prisoner p1 = new Prisoner();
@@ -72,8 +73,9 @@ public class PrisonerHandlerTest {
         verify(cellService, times(1)).removePrisoner(p1, C1);
         verify(cellService, times(1)).addPrisoner(p1, A2);
     }
+
     @Test
-    public void sendToIsolationTest(){
+    public void sendToIsolationTest() {
         Prisoner p2 = new Prisoner();
         Cell A1 = new Cell();
         Cell A2 = new Cell();
@@ -85,11 +87,13 @@ public class PrisonerHandlerTest {
         p2.setIsolated(1);
         when(cellRepository.findEmptyIsolationCellByCellBlock(cb.getCellBlockId())).thenReturn(A2);
         when(dayService.getCurrentDay()).thenReturn(new Day(1));
-        prisonerHandler.sendToIsolation(p2); 
+        prisonerHandler.sendToIsolation(p2);
         verify(cellRepository, times(1)).findEmptyIsolationCellByCellBlock(cb.getCellBlockId());
-    } 
-       @Ignore
-    public void moveOutOfIsolationCellTest(){
+    }
+
+    @Ignore
+    @Test
+    public void moveOutOfIsolationCellTest() {
         Prisoner p1 = new Prisoner();
         Cell A1 = new Cell();
         CellBlock cb = new CellBlock();
@@ -99,24 +103,26 @@ public class PrisonerHandlerTest {
         prisonerHandler.moveOutOfIsolation();
         verify(cellRepository, times(1)).findEmptyCellsByCellBlock(cb.getCellBlockId());
     }
-    
+
     @Test
-    public void substractReleaseDateTest(){
+    public void substractReleaseDateTest() {
         Prisoner p1 = new Prisoner();
         p1.setReleaseDate(500);
         prisonerHandler.subtractReleaseDate(60, p1);
         verify(prisonerRepository, times(1)).update(p1);
     }
+
     @Test
-    public void addToReleaseDateTest(){
+    public void addToReleaseDateTest() {
         Prisoner p1 = new Prisoner();
         p1.setReleaseDate(500);
         prisonerHandler.addToReleaseDate(60, p1);
         verify(prisonerRepository, times(1)).update(p1);
     }
-  
+
     @Ignore
-    public void finishJobs(){
+    @Test
+    public void finishJobs() {
         when(dayService.getCurrentDay().getDayNr()).thenReturn(1);
         Job J1 = new Job();
         Prisoner p1 = new Prisoner();
@@ -126,9 +132,10 @@ public class PrisonerHandlerTest {
         verify(prisonerRepository, times(1)).findPrisonersWithFinishedJob(1);
         verify(prisonerHandler, times(1)).subtractReleaseDate(60, p1);
     }
-  
+
     @Ignore
-    public void giveJobTest(){
+    @Test
+    public void giveJobTest() {
         Prisoner p3 = new Prisoner();
         Job job = new Job();
         p3.setJob(job);

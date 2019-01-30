@@ -41,29 +41,21 @@
                             </b:panelGrid>
                         </h:form>
                     </b:column>
-                         <b:column col-lg="6" styleClass="text-center" style="height:70%">
+                    <b:column col-lg="6" styleClass="text-center" style="height:70%">
                         <div style="border: 4px orangered solid;"> <h1 style="line-height: 200px; font-size: 25px;">
                                 <h:form>
                                     <table class="table table-bordered">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th scope="col">cell</th>
-                                                <th scope="col">size</th>
-                                                <th scope="col">prisoner(s)</th>
-                                                <th scope="col">isolationcell</th>
+                                                <th scope="col">Cell</th>
+                                                <th scope="col">Size</th>
+                                                <th scope="col">Isolation Cell</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td><h:outputText value="#{cellBlockController.currentCell.cellNr}"/></td>
                                                 <td>size</td>
-                                                <td><h:outputText value="#{cellBlockController.currentCell.prisonerList.get(0).name}"/></td>
-                                                <td>isolationcell</td>
-                                            </tr>
-                                            <tr>
-                                                <td><h:outputText value="#{cellBlockController.currentCell.cellNr}"/></td>
-                                                <td>size</td>
-                                                <td><h:outputText value="#{cellBlockController.currentCell.prisonerList.get(0).name}"/></td>
                                                 <td>isolationcell</td>
                                             </tr>
                                         </tbody>
@@ -78,7 +70,7 @@
                                     <table class="table table-bordered">
                                         <thead >
                                             <tr>
-                                                <th scope="col">Prissonner</th>
+                                                <th scope="col">Prisoner</th>
                                                 <th scope="col">Crimes</th>
                                                 <th scope="col">Job</th>
                                                 <th scope="col">JobDuration</th>
@@ -86,20 +78,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>#{cellBlockController.currentCell.prisonerList.get(0).name}</td>
-                                                <td>murder</td>
-                                                <td>cleaning</td>
-                                                <td>60</td>
-                                                <td>500</td>
-                                            </tr>
-                                            <tr>
-                                                <td>#{cellBlockController.currentCell.prisonerList.get(0).name}</td>
-                                                <td>stealing</td>
-                                                <td>cleaning</td>
-                                                <td>60</td>
-                                                <td>500</td>
-                                            </tr>
+                                                <ui:repeat value="#{cellBlockController.currentCell.prisonerList}" var="prisoner">
+                                                    <tr>
+                                                    <td><h:outputText value="#{prisoner.name}"/></td>
+                                                    <td>murder</td>
+                                                    <td>cleaning</td>
+                                                    <td>60</td>
+                                                    <td>500</td>
+                                                    </tr>
+                                                </ui:repeat>
                                         </tbody>
                                     </table>
                                 </h:form>                                             
