@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+	<url-mapping id="prison">
+		<pattern value="/prison" />
+		<view-id value="/prison.xhtml" />
+	</url-mapping>
+	<url-mapping id="cellBlockA">
+		<pattern value="/cellBlockA" />
+		<view-id value="/cellBlockA.xhtml" />
+	</url-mapping>
+	<url-mapping id="cellBlockB">
+		<pattern value="/cellBlockB" />
+		<view-id value="/cellBlockB.xhtml" />
+	</url-mapping>
+	<url-mapping id="cellBlockC">
+		<pattern value="/cellBlockC" />
+		<view-id value="/cellBlockC.xhtml" />
+	</url-mapping>
+	<url-mapping id="cellBlockD">
+		<pattern value="/cellBlockD" />
+		<view-id value="/cellBlockD.xhtml" />
+	</url-mapping>
+</pretty-config>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<ui:composition template="WEB-INF/templates/template.xhtml">
+    <ui:define name="pageTitle">Confirm user</ui:define>
+    <ui:define name="pageContent">
+
+        <ul class="list-group">
+            <li class="list-group-item"><span class="font-weight-bold">First name : </span><h:outputText
+                    value="#{registrationController.firstName}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">Last name : </span><h:outputText
+                    value="#{registrationController.lastName}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">Date of birth : </span><h:outputText
+                    value="#{registrationController.dateOfBirth}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">Gender : </span><h:outputText
+                    value="#{registrationController.gender}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">E-mail: </span><h:outputText
+                    value="#{registrationController.email}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">Service level : </span><h:outputText
+                    value="#{registrationController.serviceLevel}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">Phone : </span><h:outputText
+                    value="#{registrationController.phone}"/></li>
+            <li class="list-group-item"><span class="font-weight-bold">Accountnumber : </span><h:outputText
+                    value="#{registrationController.accountNumber}"/></li>
+        </ul>
+    </ui:define>
+</ui:composition>
+</html>

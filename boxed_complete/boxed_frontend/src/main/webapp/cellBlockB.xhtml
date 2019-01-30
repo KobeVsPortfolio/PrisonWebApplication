@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <h:outputScript library="=jquery-3.3.1" name="jquery.3.3.1.js"/>
+        <h:outputScript name="css/Prison.css"/>
+    </h:head>
+    <h:body>
+        <h1>Confirm</h1>
+        <ui:composition template="WEB-INF/templates/template.xhtml">
+            <ui:define name="pageTitle">Prison</ui:define>
+            <ui:define name="title">Choose CellBlock</ui:define>
+           <ui:define name="pageContent">
+                <b:row style="height:50%; margin-top: 2%">
+                    <b:column col-lg="6" styleClass="text-center">
+                        <h:form>
+                            <b:panelGrid columns="4" size="lg">
+                                <h:panelGroup styleClass="form-group col-3">
+                                    <ui:repeat value="#{cellBlockController.cellsB.subList(0, 15)}" var="cell">
+                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="form-group col-3">
+                                    <ui:repeat value="#{cellBlockController.cellsB.subList(15, 30)}" var="cell">
+                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="form-group col-3">
+                                    <ui:repeat value="#{cellBlockController.cellsB.subList(30, 45)}" var="cell">
+                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="form-group col-3">
+                                    <ui:repeat value="#{cellBlockController.cellsB.subList(45, 60)}" var="cell">
+                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                            </b:panelGrid>
+                        </h:form>
+                    </b:column>
+                    <b:column col-lg="6" styleClass="text-center" style="height:100%">
+                                    <h:form>
+                                       <h:outputText value="#{cellBlockController.currentCell.cellNr}"/>
+                                   <ui:repeat value="#{cellBlockController.currentCell.prisonerList}" var="prisoner">
+                                       <h:outputText value="#{prisoner.name}"/>
+                                   </ui:repeat>
+                                    </h:form>
+                    </b:column>
+                </b:row>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
