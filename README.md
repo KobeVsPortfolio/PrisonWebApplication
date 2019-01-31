@@ -28,7 +28,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
 ```
 
 
-# add Datasource
+# add Datasource (custom template)
 
 - go to localhost:9990
 - JNDI: java:/BoxedPersistenceUnit
