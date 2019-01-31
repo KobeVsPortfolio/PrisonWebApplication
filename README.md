@@ -11,7 +11,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
 #add module.xml
 
 
--<module name="com.microsoft.sqlserver" xmlns="urn:jboss:module:1.3">
+<*module name="com.microsoft.sqlserver" xmlns="urn:jboss:module:1.3">
 
     <resources>
         <resource-root path="mssql-jdbc-7.0.0.jre8.jar"/>
@@ -21,8 +21,9 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
         <module name="javax.api"/>
         <module name="javax.transaction.api"/>
     </dependencies>
-
--</module>
+    
+<*/module>
+*Delete the '*'*
 
 #add Datasource
 
