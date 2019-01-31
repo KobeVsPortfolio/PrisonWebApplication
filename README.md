@@ -30,11 +30,11 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
 
 # add Datasource
 
-go to localhost:9990
-JNDI: java:/BoxedPersistenceUnit
-Driver name: mssql-jdbc-7.0.0.jre8.jar
-Connection url: 
-jdbc:sqlserver://boxed.database.windows.net:1433;database=boxed;user=B0xed1@boxed;password={B0xederkoja};
+- go to localhost:9990
+- JNDI: java:/BoxedPersistenceUnit
+- Driver name: mssql-jdbc-7.0.0.jre8.jar
+- Connection url: 
+    - jdbc:sqlserver://boxed.database.windows.net:1433;database=boxed;user=B0xed1@boxed;password={B0xederkoja};
 
 NO NEED TO ADD PASSWORD OR USERNAME
 
