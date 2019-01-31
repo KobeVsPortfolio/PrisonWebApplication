@@ -1,17 +1,18 @@
 # boxed
 
-#download driver
+# download driver
 
 https://www.microsoft.com/en-us/download/details.aspx?id=57175
 
-#Put the jar in 
+# Put the jar in 
 
 \wildfly-15.0.1.Final\modules\system\layers\base\com\microsoft\sqlserver\main
 
-#add module.xml
+# add module.xml
 
+´´´xml
 
-<+module name="com.microsoft.sqlserver" xmlns="urn:jboss:module:1.3">
+<module name="com.microsoft.sqlserver" xmlns="urn:jboss:module:1.3">
 
     <resources>
         <resource-root path="mssql-jdbc-7.0.0.jre8.jar"/>
@@ -22,11 +23,12 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
         <module name="javax.transaction.api"/>
     </dependencies>
     
-<+/module>
+</module>
 
-*Delete the '+'*
+´´´
 
-#add Datasource
+
+# add Datasource
 
 go to localhost:9990
 JNDI: java:/BoxedPersistenceUnit
