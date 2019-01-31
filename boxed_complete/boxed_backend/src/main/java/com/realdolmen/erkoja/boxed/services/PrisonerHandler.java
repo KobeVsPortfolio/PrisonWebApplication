@@ -20,11 +20,6 @@ public class PrisonerHandler {
     private Day currentDay;
     private JobRepository jobRepository;
 
-   
-
-    private Integer currentDayNr;
-
-
     public PrisonerHandler() {
         prisonerRepository = new PrisonerRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
         cellRepository = new CellRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
@@ -43,7 +38,6 @@ public class PrisonerHandler {
     }
 
     public void handlePrisoners() {
-        currentDay = dayService.getCurrentDay();
         releasePrisoners();
         moveOutOfIsolation();
     }
@@ -56,6 +50,7 @@ public class PrisonerHandler {
     }
 
     public void releasePrisoners() {
+        currentDay = dayService.getCurrentDay();
         Integer day = currentDay.getDayNr();
         List<Prisoner> prisonersToRelease = prisonerRepository.findPrisonersToRelease(day);
         for (Prisoner p : prisonersToRelease) {
@@ -68,19 +63,21 @@ public class PrisonerHandler {
         CellBlock prisonersCellBlock = originCell.getCellBlock();
         String cbId = prisonersCellBlock.getCellBlockId();
         Cell isolationCell = cellRepository.findEmptyIsolationCellByCellBlock(cbId);
-        prisoner.setIsolated(dayService.getCurrentDay().getDayNr() + 10);
+        prisoner.setIsolationDuration(dayService.getCurrentDay().getDayNr() + 10);
+        prisoner.setIsolated(true);
         addToReleaseDate(60, prisoner);
         movePrisoners(originCell, isolationCell, prisoner);
     }
     
     void moveOutOfIsolation(){
+        currentDay = dayService.getCurrentDay();
         Integer day = currentDay.getDayNr();
         List<Prisoner> prisonersInIsolation = prisonerRepository.findPrisonersInIsolation(day);
         for (Prisoner p : prisonersInIsolation) {
             Cell out = p.getCell();
             Cell in = cellRepository.findEmptyCellsByCellBlock(p.getCell().getCellBlock().getCellBlockId());
-            p.setIsolated(null);
-            // null op Integer????? Wat doen met status prisoner niet meer in isolatiecell zit?
+            p.setIsolated(false);
+            p.setIsolationDuration(0);
             movePrisoners(out, in, p);      
         }
     }
@@ -101,17 +98,21 @@ public class PrisonerHandler {
         this.currentDay = currentDay;
     }
     
-    public void finishJobs(Job job, Prisoner prisoner){
+    public void finishJobs(){
+        currentDay = dayService.getCurrentDay();
         Integer day = currentDay.getDayNr();
         List<Prisoner> prisonersWithFinishedJob = prisonerRepository.findPrisonersWithFinishedJob(day);
         for (Prisoner p : prisonersWithFinishedJob) {
-        subtractReleaseDate(60, p);        }
+        p.setJob(null);
+        p.setJobDuration(0);
+        subtractReleaseDate(60, p);
+        }
     }
 
         public void giveJob(Job job, Prisoner prisoner){
         prisoner.setJob(job);
         prisoner.setJobDuration(dayService.getCurrentDay().getDayNr() + job.getDuration());
-        jobRepository.update(job);
+        prisonerRepository.update(prisoner);
     }
 
 }

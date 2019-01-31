@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Cell")
 @NamedQueries({
-@NamedQuery(name = Cell.FIND_CELLS_BY_CELLBLOCK, query = "select c from Cell c where c.cellBlock.cellBlockId = :cellBlock"),
+@NamedQuery(name = Cell.FIND_CELLS_BY_CELLBLOCK, query = "select c from Cell c where c.cellBlock.cellBlockId = :cellBlock AND c.isolationCell = false"),
 @NamedQuery(name = Cell.FIND_ISOLATION_BY_CELLBLOCK, query = "select c from Cell c where c.isolationCell = true AND c.cellBlock.cellBlockId = :cellBlock")})
 public class Cell {
     public static final String FIND_CELLS_BY_CELLBLOCK = "FindCellsByCellBlock";
