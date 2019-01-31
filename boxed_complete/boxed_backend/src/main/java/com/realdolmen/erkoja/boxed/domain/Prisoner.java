@@ -5,16 +5,17 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-@NamedQuery(name=Prisoner.FIND_TORELEASE, query="select p from Prisoner p where releaseDate <= :currentDate"),
-@NamedQuery(name=Prisoner.FIND_JOBS, query="select p from Prisoner p where jobDuration <= :currentDate"),
-@NamedQuery(name=Prisoner.FIND_INISOLATION, query="select p from Prisoner p where isolated <= :currentDate")})
+@NamedQuery(name=Prisoner.FIND_TORELEASE, query="select p from Prisoner p where p.releaseDate <= :currentDate"),
+@NamedQuery(name=Prisoner.FIND_JOBS, query="select p from Prisoner p where p.jobDuration <= :currentDate AND p.job IS NOT NULL"),
+@NamedQuery(name=Prisoner.FIND_INISOLATION, query="select p from Prisoner p where p.isolated = true AND p.isolationDuration <= :currentDate")})
 @Table(name = "Prisoner")
 public class Prisoner extends Person {
     public static final String FIND_TORELEASE = "findToRelease";
     public static final String FIND_INISOLATION = "findInIsolation";
     public static final String FIND_JOBS = "findPrisonersWithJob";
     
-    private Integer isolated;
+    private Boolean isolated;
+    private Integer isolationDuration;
     
     @OneToOne
     private Job job;
@@ -39,14 +40,6 @@ public class Prisoner extends Person {
 
     public void finishJob(Job job) {
 
-    }
-    
-    public Integer getIsolated() {
-        return isolated;
-    }
-
-    public void setIsolated(Integer isolated) {
-        this.isolated = isolated;
     }
 
     public Job getJob() {
@@ -89,4 +82,19 @@ public class Prisoner extends Person {
         this.jobDuration = jobDuration;
     }
 
+    public Boolean getIsolated() {
+        return isolated;
+    }
+
+    public void setIsolated(Boolean isolated) {
+        this.isolated = isolated;
+    }
+
+    public Integer getIsolationDuration() {
+        return isolationDuration;
+    }
+
+    public void setIsolationDuration(Integer isolationDuration) {
+        this.isolationDuration = isolationDuration;
+    }
 }
