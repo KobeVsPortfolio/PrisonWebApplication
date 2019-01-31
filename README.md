@@ -10,7 +10,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
 
 # add module.xml
 
-´´´xml
+```xml
 
 <module name="com.microsoft.sqlserver" xmlns="urn:jboss:module:1.3">
 
@@ -25,7 +25,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57175
     
 </module>
 
-´´´
+```
 
 
 # add Datasource
