@@ -22,7 +22,6 @@
         <!--FOR AZURE DB USE-->
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://boxed.database.windows.net:1433;database=boxed;user=B0xed1@boxed;password={B0xederkoja};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"/>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
         </properties>
         
         
@@ -56,7 +55,7 @@
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://boxed.database.windows.net:1433;database=boxedTest;user=B0xed1@boxed;password={B0xederkoja};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="javax.persistence.sql-load-script-source" value="META-INF/data_2.sql"/>
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/test.sql"/>
         </properties>
         
         

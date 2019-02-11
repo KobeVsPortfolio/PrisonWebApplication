@@ -1,10 +1,11 @@
 package com.realdolmen.erkoja.boxed.services;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.persistence.EntityManager;
 
-public class DayGenerator {
+public class DayGenerator implements Serializable{
     
     private DayService dayService;
     private TimerTask repeatedTask;
