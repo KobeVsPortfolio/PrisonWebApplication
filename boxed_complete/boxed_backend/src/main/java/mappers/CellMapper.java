@@ -2,8 +2,8 @@ package mappers;
 
 import com.realdolmen.erkoja.boxed.domain.Cell;
 import com.realdolmen.erkoja.boxed.domain.CellBlock;
-import dtos.CellBlockDto;
-import dtos.CellDto;
+import com.realdolmen.erkoja.boxed.domain.dtos.CellBlockDto;
+import com.realdolmen.erkoja.boxed.domain.dtos.CellDto;
 import java.util.function.Function;
 
 public class CellMapper implements Function<Cell,CellDto> {

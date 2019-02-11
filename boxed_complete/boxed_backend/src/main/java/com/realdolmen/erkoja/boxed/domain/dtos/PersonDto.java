@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dtos;
+package com.realdolmen.erkoja.boxed.domain.dtos;
 
 /**
  *
  * @author JVDBG19
  */
-public class CrimeDto {
+public class PersonDto {
     private Integer id;
     private String name;
-    private Integer punishment;
 
-    public CrimeDto(Integer id, String name, Integer punishment) {
+    public PersonDto(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.punishment = punishment;
     }
 
     public Integer getId() {
@@ -35,13 +33,6 @@ public class CrimeDto {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Integer getPunishment() {
-        return punishment;
-    }
-
-    public void setPunishment(Integer punishment) {
-        this.punishment = punishment;
-    }
+    
     
 }

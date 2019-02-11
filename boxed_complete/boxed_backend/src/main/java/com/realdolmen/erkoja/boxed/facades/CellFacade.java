@@ -8,7 +8,7 @@ package com.realdolmen.erkoja.boxed.facades;
 import com.realdolmen.erkoja.boxed.domain.Cell;
 import com.realdolmen.erkoja.boxed.repositories.CellRepository;
 import com.realdolmen.erkoja.boxed.services.CellService;
-import dtos.CellDto;
+import com.realdolmen.erkoja.boxed.domain.dtos.CellDto;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
