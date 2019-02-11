@@ -7,17 +7,11 @@ import com.realdolmen.erkoja.boxed.domain.Guard;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 public class CellBlockMapperTest {
     
-@Ignore
     @Test
     public void CellBlockDtoEqualsCellBlockTest(){
     CellBlock cellBlock = new CellBlock();
