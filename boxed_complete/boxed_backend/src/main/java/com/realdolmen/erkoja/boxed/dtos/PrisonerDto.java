@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dtos;
+
+package com.realdolmen.erkoja.boxed.dtos;
 
 import java.util.List;
 
-/**
- *
- * @author JVDBG19
- */
 public class PrisonerDto {
+    private Integer id;
+    private String name;
     private Boolean isolated;
     private Integer isolationDuration;
     private JobDto job;
@@ -20,7 +14,9 @@ public class PrisonerDto {
     private CellDto cell;
     private Integer jobDuration;
 
-    public PrisonerDto(Boolean isolated, Integer isolationDuration, JobDto job, List<CrimeDto> crimes, Integer releaseDate, CellDto cell, Integer jobDuration) {
+    public PrisonerDto(Integer id, String name, Boolean isolated, Integer isolationDuration, Integer releaseDate, Integer jobDuration) {
+        this.id = id;
+        this.name = name;
         this.isolated = isolated;
         this.isolationDuration = isolationDuration;
         this.job = job;
@@ -28,6 +24,22 @@ public class PrisonerDto {
         this.releaseDate = releaseDate;
         this.cell = cell;
         this.jobDuration = jobDuration;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Boolean getIsolated() {

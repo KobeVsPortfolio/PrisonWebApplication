@@ -34,7 +34,5 @@ public class Guard extends Person {
 
     public void setGrade(Grade grade) {
         this.grade = grade;
-    }
-
-    
+    } 
 }
