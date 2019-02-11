@@ -39,4 +39,7 @@ public class CellService{
         } 
     }
     
+    public List<Cell> findAllCells() {
+        return cellRepository.findAll();
+    }
 }
