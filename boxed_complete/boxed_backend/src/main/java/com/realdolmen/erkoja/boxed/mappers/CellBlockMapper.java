@@ -13,6 +13,10 @@ import java.util.function.Function;
 
 public class CellBlockMapper implements Function<CellBlock,CellBlockDto> {
 
+    public CellBlockMapper() {
+    }
+    
+    
     @Override
     public CellBlockDto apply(CellBlock cellBlock) {
         CellBlockDto dto = new CellBlockDto(cellBlock.getCellBlockId());
