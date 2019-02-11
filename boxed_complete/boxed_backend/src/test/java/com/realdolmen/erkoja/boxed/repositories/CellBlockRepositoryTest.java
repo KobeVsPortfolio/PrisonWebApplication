@@ -23,7 +23,70 @@ import org.junit.Ignore;
 
 public class CellBlockRepositoryTest {
     
+    private static EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+    private static CellBlockRepository cellBlockRepository;
+
+    @BeforeClass
+    public static void initClass() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("BoxedPersistenceTestUnit");
+    }
+
+    @Before
+    public void init() {
+        entityManager = entityManagerFactory.createEntityManager();
+        cellBlockRepository = new CellBlockRepository(entityManager);
+    }
+
+    @Test
+    public void findCellBlockByIdTest() {
+        CellBlock cellblock = cellBlockRepository.findById("A");
+        assertNotNull(cellblock);
+    }
     
+    @Test
+    public void findAllCellBlocksTest(){
+        List<CellBlock> cellBlock = cellBlockRepository.findAll();
+        assertNotNull(cellBlock);
+    }
+
+    @Test
+    public void saveCellBlock() throws Exception {
+        CellBlock cb = new CellBlock();
+        cb.setCellBlockId("D");
+        cellBlockRepository.save(cb);
+        assertNotNull(entityManager.find(CellBlock.class, "D"));
+    }
+
+    @Test
+    public void deleteCellBlockTest(){
+        cellBlockRepository.delete("C");
+        assertNull(entityManager.find(CellBlock.class,"C"));
+    }
+
+    @Test
+    public void updateCellBlockTest(){
+        CellBlock cb = entityManager.find(CellBlock.class, "B");
+        List<Cell> cells = new ArrayList<>();
+        Cell cell = new Cell();
+        cell.setCellBlock(cb);
+        cells.add(cell); 
+        cb.setCells(cells);
+        assertEquals(cells, entityManager.find(CellBlock.class, "B").getCells());
+        
+    }
+
+
+    @After
+    public void exit() {
+        cellBlockRepository.close();
+    }
+
+    @AfterClass
+    public static void exitClass(){
+        entityManagerFactory.close();
+    }
+
 }
     
 
