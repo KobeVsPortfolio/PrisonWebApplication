@@ -1,26 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dtos;
+
+package com.realdolmen.erkoja.boxed.dtos;
 
 
 import java.util.List;
 
-/**
- *
- * @author JVDBG19
- */
 public class CellBlockDto {
     private String cellBlockId;
     private List<CellDto> cells;
     private List<GuardDto> guards;
 
-    public CellBlockDto(String cellBlockId, List<CellDto> cells, List<GuardDto> guards) {
+    public CellBlockDto(String cellBlockId) {
         this.cellBlockId = cellBlockId;
-        this.cells = cells;
-        this.guards = guards;
     }
 
     public String getCellBlockId() {

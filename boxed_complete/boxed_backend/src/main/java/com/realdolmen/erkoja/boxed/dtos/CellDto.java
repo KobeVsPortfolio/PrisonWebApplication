@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dtos;
+package com.realdolmen.erkoja.boxed.dtos;
 
 
 import java.util.List;
@@ -20,12 +20,11 @@ public class CellDto {
     private boolean isolationCell;
     private List<PrisonerDto> prisonerList;
 
-    public CellDto(Integer cellId,String cellNr, Integer size, boolean isolationCell, List<PrisonerDto> prisonerList) {
+    public CellDto(Integer cellId,String cellNr, Integer size, boolean isolationCell) {
         this.cellId = cellId;
         this.cellNr = cellNr;
         this.size = size;
         this.isolationCell = isolationCell;
-        this.prisonerList = prisonerList;
     }
 
     public String getCellNr() {
