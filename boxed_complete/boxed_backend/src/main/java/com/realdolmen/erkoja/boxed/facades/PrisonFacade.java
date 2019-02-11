@@ -4,27 +4,22 @@ import com.realdolmen.erkoja.boxed.services.DayGenerator;
 import java.io.Serializable;
 import javax.inject.Inject;
 
-
-public class PrisonFacade implements Serializable{
+public class PrisonFacade implements Serializable {
 
     public PrisonFacade() {
     }
-    
-    
+
     @Inject
     private DayGenerator dayGenerator;
-    
-    
-    public boolean toggleTime(boolean timeOn){
-        if(timeOn == true ){
+
+    public boolean toggleTime(boolean timeOn) {
+        if (timeOn == true) {
             dayGenerator.stopCounting();
             return false;
-        } else{
+        } else {
             dayGenerator.generateDays();
             return true;
         }
     }
-    
-    
-    
+
 }

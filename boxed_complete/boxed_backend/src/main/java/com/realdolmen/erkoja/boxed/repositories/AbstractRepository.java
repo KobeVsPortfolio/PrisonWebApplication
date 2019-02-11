@@ -1,12 +1,17 @@
 
 package com.realdolmen.erkoja.boxed.repositories;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
-public abstract class AbstractRepository<C, T> {
+public abstract class AbstractRepository<C, T>{
 
+    
+    @PersistenceContext
     protected EntityManager em;
     private EntityTransaction transaction;
     private Class<C> entityClass;
@@ -16,6 +21,13 @@ public abstract class AbstractRepository<C, T> {
         this.em = em;
         this.entityClass = entity;
     }
+
+    public AbstractRepository(Class<C> entityClass) {
+        this.entityClass = entityClass;
+        this.em = Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager();
+    }
+    
+    
 
 
     public C findById(T id) {

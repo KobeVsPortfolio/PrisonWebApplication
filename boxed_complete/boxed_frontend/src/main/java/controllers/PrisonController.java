@@ -1,5 +1,7 @@
 package controllers;
 
+import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
+import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
 import domain.CellBlock;
 import java.io.Serializable;
@@ -15,10 +17,12 @@ import javax.inject.Named;
 @SessionScoped
 public class PrisonController implements Serializable{
     
-    private List<CellBlock> cellBlocks;
+    private List<CellBlockDto> cellBlocks;
     
     @Inject
     private PrisonFacade prisonFacade;
+    @Inject
+    private CellBlockFacade cellBlockFacade;
     
     private boolean generating;
     
@@ -27,34 +31,24 @@ public class PrisonController implements Serializable{
     @PostConstruct
     public void init(){
         generating = false;
-        toggleDayGeneration();
-        cellBlocks = new ArrayList<>();
-        CellBlock a = new CellBlock();
-        CellBlock b = new CellBlock();
-        CellBlock c = new CellBlock();
-        CellBlock d = new CellBlock();
-        a.setCellBlockId("A");
-        b.setCellBlockId("B");
-        c.setCellBlockId("C");
-        d.setCellBlockId("D");
-        cellBlocks.add(a);
-        cellBlocks.add(b);
-        cellBlocks.add(c);
-        cellBlocks.add(d);
+        cellBlocks = cellBlockFacade.findAll();
     }
 
     public void toggleDayGeneration(){
         prisonFacade.toggleTime(generating);
         generating = (generating == false)?true:false;
     }
-    
-    public List<CellBlock> getCellBlocks() {
+
+    public List<CellBlockDto> getCellBlocks() {
         return cellBlocks;
     }
 
-    public void setCellBlocks(List<CellBlock> cellBlocks) {
+    public void setCellBlocks(List<CellBlockDto> cellBlocks) {
         this.cellBlocks = cellBlocks;
     }
+    
+    
+    
 
 
 }
