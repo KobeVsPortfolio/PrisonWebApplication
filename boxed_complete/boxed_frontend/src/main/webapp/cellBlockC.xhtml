@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <h:outputScript library="=jquery-3.3.1" name="jquery.3.3.1.js"/>
@@ -20,22 +21,46 @@
                             <b:panelGrid columns="4" size="lg">
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsC.subList(0, 15)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                            <f:ajax
+                                                event="click"
+                                                listener="#{cellBlockController.setCurrentCell(cell)}"
+                                                render="cellinfo prisonerinfo"> 
+                                            </f:ajax>
+                                        </b:commandButton>
                                     </ui:repeat>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsC.subList(15, 30)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                        <f:ajax
+                                                event="click"
+                                                listener="#{cellBlockController.setCurrentCell(cell)}"
+                                                render="cellinfo prisonerinfo"> 
+                                            </f:ajax>
+                                        </b:commandButton>
                                     </ui:repeat>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsC.subList(30, 45)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                            <f:ajax
+                                                event="click"
+                                                listener="#{cellBlockController.setCurrentCell(cell)}"
+                                                render="cellinfo prisonerinfo"> 
+                                            </f:ajax>
+                                        </b:commandButton>
                                     </ui:repeat>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsC.subList(45, 60)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" action="#{cellBlockController.setCurrentCell(cell)}"  style="width:100%; #{cellBlockController.createStyle(cell)}"/>
+                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                            <f:ajax
+                                                event="click"
+                                                listener="#{cellBlockController.setCurrentCell(cell)}"
+                                                render="cellinfo prisonerinfo"> 
+                                            </f:ajax>
+                                        </b:commandButton>
                                     </ui:repeat>
                                 </h:panelGroup>
                             </b:panelGrid>
@@ -43,7 +68,7 @@
                     </b:column>
                     <b:column col-lg="6" styleClass="text-center" style="height:70%">
                         <div style="border: 4px orangered solid;"> <h1 style="line-height: 200px; font-size: 25px;">
-                                <h:form>
+                                <h:form  id="cellinfo">
                                     <table class="table table-bordered">
                                         <thead class="thead-dark">
                                             <tr>
@@ -65,7 +90,7 @@
                     </b:column>
                     <b:column col-lg="6" styleClass="text-center" style="height:100%">
                         <div style="border: 4px orangered solid;"> <h1 style="line-height: 200px; font-size: 25px;">
-                                <h:form> 
+                                <h:form id="prisonerinfo"> 
 
                                     <table class="table table-bordered">
                                         <thead >

@@ -14,17 +14,26 @@ import java.util.List;
  */
 public class CellDto {
     private Integer cellId;
-    private String cellBlock;
+    private String cellNr;
+    private CellBlockDto cellBlock;
     private Integer size;
     private boolean isolationCell;
     private List<PrisonerDto> prisonerList;
 
-    public CellDto(Integer cellId, String cellBlock, Integer size, boolean isolationCell, List<PrisonerDto> prisonerList) {
+    public CellDto(Integer cellId,String cellNr, Integer size, boolean isolationCell, List<PrisonerDto> prisonerList) {
         this.cellId = cellId;
-        this.cellBlock = cellBlock;
+        this.cellNr = cellNr;
         this.size = size;
         this.isolationCell = isolationCell;
         this.prisonerList = prisonerList;
+    }
+
+    public String getCellNr() {
+        return cellNr;
+    }
+
+    public void setCellNr(String cellNr) {
+        this.cellNr = cellNr;
     }
 
     public Integer getCellId() {
@@ -35,11 +44,11 @@ public class CellDto {
         this.cellId = cellId;
     }
 
-    public String getCellBlock() {
+    public CellBlockDto getCellBlock() {
         return cellBlock;
     }
 
-    public void setCellBlock(String cellBlock) {
+    public void setCellBlock(CellBlockDto cellBlock) {
         this.cellBlock = cellBlock;
     }
 
