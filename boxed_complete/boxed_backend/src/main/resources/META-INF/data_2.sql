@@ -1,4 +1,4 @@
-INSERT INTO dbo.CellBlock (cellBlockId) VALUES ('A');
+INSERT INTO dbo.CellBlock (cellBlockId, ) VALUES ('A');
 INSERT INTO dbo.CellBlock (cellBlockId) VALUES ('B');
 INSERT INTO dbo.CellBlock (cellBlockId) VALUES ('C');
 INSERT INTO dbo.CellBlock (cellBlockId) VALUES ('D');

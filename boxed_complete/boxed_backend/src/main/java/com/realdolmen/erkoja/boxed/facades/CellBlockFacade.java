@@ -28,4 +28,9 @@ public class CellBlockFacade implements Serializable{
         }
         return cellBlockDtos;
     }
+    
+    public List<CellBlock> findAllTest(){
+        List<CellBlock> cellBlocks = cellBlockService.findAll();
+        return cellBlocks;
+    }
 }

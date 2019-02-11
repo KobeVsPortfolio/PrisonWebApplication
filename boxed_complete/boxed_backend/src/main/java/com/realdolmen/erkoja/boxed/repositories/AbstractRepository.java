@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 public abstract class AbstractRepository<C, T>{
 
     
-    @PersistenceContext
     protected EntityManager em;
     private EntityTransaction transaction;
     private Class<C> entityClass;
