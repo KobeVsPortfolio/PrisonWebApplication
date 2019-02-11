@@ -86,7 +86,7 @@
                                         </tbody>
                                     </table>
                                 </h:form>                                             
-                            </h1></div>
+                            </h1></div>                                        
                     </b:column>
                     <b:column col-lg="6" styleClass="text-center" style="height:100%">
                         <div style="border: 4px orangered solid;"> <h1 style="line-height: 200px; font-size: 25px;">
@@ -103,15 +103,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <ui:repeat value="#{cellBlockController.currentCell.prisonerList}" var="prisoner">
-                                                    <tr>
+                                            <ui:repeat value="#{cellBlockController.currentCell.prisonerList}" var="prisoner">
+                                                <tr>
                                                     <td><h:outputText value="#{prisoner.name}"/></td>
                                                     <td>murder</td>
                                                     <td>cleaning</td>
                                                     <td>60</td>
                                                     <td>500</td>
-                                                    </tr>
-                                                </ui:repeat>
+                                                </tr>
+                                            </ui:repeat>
                                         </tbody>
                                     </table>
                                 </h:form>                                             
