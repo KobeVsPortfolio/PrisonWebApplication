@@ -13,6 +13,9 @@ public class CellBlockDto {
         this.cellBlockId = cellBlockId;
     }
 
+    public CellBlockDto() {
+    }
+
     public String getCellBlockId() {
         return cellBlockId;
     }

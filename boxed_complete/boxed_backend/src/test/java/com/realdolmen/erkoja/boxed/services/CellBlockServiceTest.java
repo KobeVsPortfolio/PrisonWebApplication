@@ -29,9 +29,7 @@ public class CellBlockServiceTest {
     
     @InjectMocks
     private CellBlockService cellBlockService;
-    
-    
-    
+
     @Test
     public void testFindAll() {
         when(cellBlockRepository.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new CellBlock())));

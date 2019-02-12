@@ -22,6 +22,7 @@ public class PrisonController implements Serializable{
     
     @Inject
     private PrisonFacade prisonFacade;
+    
     @Inject
     private CellBlockFacade cellBlockFacade;
     
@@ -33,7 +34,6 @@ public class PrisonController implements Serializable{
     public void init(){
         generating = false;
         cellBlocks = cellBlockFacade.findAll();
-
     }
 
     public void toggleDayGeneration(){
@@ -49,10 +49,28 @@ public class PrisonController implements Serializable{
         this.cellBlocks = cellBlocks;
     }
 
-    
-    
-    
-    
+    public PrisonFacade getPrisonFacade() {
+        return prisonFacade;
+    }
 
+    public void setPrisonFacade(PrisonFacade prisonFacade) {
+        this.prisonFacade = prisonFacade;
+    }
+
+    public CellBlockFacade getCellBlockFacade() {
+        return cellBlockFacade;
+    }
+
+    public void setCellBlockFacade(CellBlockFacade cellBlockFacade) {
+        this.cellBlockFacade = cellBlockFacade;
+    }
+
+    public boolean isGenerating() {
+        return generating;
+    }
+
+    public void setGenerating(boolean generating) {
+        this.generating = generating;
+    }
 
 }
