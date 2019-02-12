@@ -20,13 +20,13 @@ public class CellBlockFacade implements Serializable{
     @Inject
     private CellBlockMapper cellBlockMapper;
     
-    public List<CellBlockDto> findAll(){
+    public List<CellBlock> findAll(){
         List<CellBlock> cellBlocks = cellBlockService.findAll();
-        List<CellBlockDto> cellBlockDtos = new ArrayList<>();
-        for(CellBlock cb : cellBlocks){
-            cellBlockDtos.add(cellBlockMapper.apply(cb));
-        }
-        return cellBlockDtos;
+//        List<CellBlockDto> cellBlockDtos = new ArrayList<>();
+//        for(CellBlock cb : cellBlocks){
+//            cellBlockDtos.add(cellBlockMapper.apply(cb));
+//        }
+        return cellBlocks;
     }
     
     public List<CellBlock> findAllTest(){

@@ -1,12 +1,15 @@
 package controllers;
 
-import domain.Cell;
-import domain.Prisoner;
+import com.realdolmen.erkoja.boxed.domain.CellBlock;
+import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
+import com.realdolmen.erkoja.boxed.domain.Cell;
+import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
@@ -22,14 +25,20 @@ public class CellBlockController implements Serializable {
     private Cell currentCell;
     private Prisoner prisoner;
     private List<Prisoner> prisonerList;
+    private List<CellBlock> cellBlocks; 
+    
+    @Inject
+    private CellBlockFacade cellBlockFacade;
     
     @PostConstruct
     public void init() {
-        cellsA = new ArrayList<>();
-        cellsB = new ArrayList<>();
-        cellsC = new ArrayList<>();
-        cellsD = new ArrayList<>();
         
+        cellBlocks = cellBlockFacade.findAll();
+        
+        cellsA = cellBlocks.get(0).getCells();
+        cellsB = cellBlocks.get(1).getCells();
+        cellsC = cellBlocks.get(2).getCells();
+        cellsD = cellBlocks.get(3).getCells();
         
         
         for(int i = 1; i<31; i++){

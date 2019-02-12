@@ -19,7 +19,6 @@ import javax.inject.Named;
 public class PrisonController implements Serializable{
     
     private List<CellBlock> cellBlocks;
-    private Cell test;
     
     @Inject
     private PrisonFacade prisonFacade;
@@ -34,7 +33,6 @@ public class PrisonController implements Serializable{
     public void init(){
         generating = false;
         cellBlocks = cellBlockFacade.findAllTest();
-        test = cellBlocks.get(0).getCells().get(0);
     }
 
     public void toggleDayGeneration(){
@@ -48,14 +46,6 @@ public class PrisonController implements Serializable{
 
     public void setCellBlocks(List<CellBlock> cellBlocks) {
         this.cellBlocks = cellBlocks;
-    }
-
-    public Cell getTest() {
-        return test;
-    }
-
-    public void setTest(Cell test) {
-        this.test = test;
     }
 
     
