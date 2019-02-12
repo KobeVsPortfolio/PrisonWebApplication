@@ -1,29 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.realdolmen.erkoja.boxed.mappers;
 
 import com.realdolmen.erkoja.boxed.domain.Cell;
 import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import com.realdolmen.erkoja.boxed.dtos.CellDto;
-import com.realdolmen.erkoja.boxed.repositories.CellRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.jboss.com.sun.org.omg.CORBA.Repository;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author JVDBG19
- */
 public class CellMapperTest {
     
     @Test
@@ -47,5 +33,19 @@ public class CellMapperTest {
         assertEquals(cellDto.getSize(),cell.getSize());
         assertEquals(cellDto.getCellNr(),cell.getCellNr());
         assertEquals(cellDto.getPrisonerList().get(0).getId(),cell.getPrisonerList().get(0).getId());
+    }
+    
+    @Test
+    public void CellDtoCellBlockEqualsCellTest(){
+        Cell cell = new Cell();
+        CellBlock cellBlock = new CellBlock();
+        cellBlock.setCellBlockId("A");
+        cell.setCellBlock(cellBlock);
+        List<Cell> cells = new ArrayList<>();
+        cells.add(cell);
+        cellBlock.setCells(cells);
+        CellMapper cellM = new CellMapper();
+        CellDto cellDto = cellM.apply(cell);
+        assertEquals(cellDto.getCellBlock().getCellBlockId(), cell.getCellBlock().getCellBlockId());
     }
 }

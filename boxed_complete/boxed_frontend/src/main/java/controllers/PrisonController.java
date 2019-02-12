@@ -33,6 +33,7 @@ public class PrisonController implements Serializable{
     public void init(){
         generating = false;
         cellBlocks = cellBlockFacade.findAllTest();
+
     }
 
     public void toggleDayGeneration(){
