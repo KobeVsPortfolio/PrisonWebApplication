@@ -27,6 +27,4 @@ public class CellBlockFacade implements Serializable{
         }
         return cellBlockDtos;
     }
-    
- 
 }

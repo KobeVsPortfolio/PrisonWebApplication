@@ -3,10 +3,6 @@ package com.realdolmen.erkoja.boxed.repositories;
 
 import com.realdolmen.erkoja.boxed.domain.Cell;
 import com.realdolmen.erkoja.boxed.domain.CellBlock;
-import com.realdolmen.erkoja.boxed.domain.Guard;
-import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
-import com.realdolmen.erkoja.boxed.mappers.CellBlockMapper;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,7 +14,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 
 public class CellBlockRepositoryTest {
@@ -54,7 +49,9 @@ public class CellBlockRepositoryTest {
     public void saveCellBlock() throws Exception {
         CellBlock cb = new CellBlock();
         cb.setCellBlockId("D");
+        cellBlockRepository.begin();
         cellBlockRepository.save(cb);
+        cellBlockRepository.commit();
         assertNotNull(entityManager.find(CellBlock.class, "D"));
     }
 

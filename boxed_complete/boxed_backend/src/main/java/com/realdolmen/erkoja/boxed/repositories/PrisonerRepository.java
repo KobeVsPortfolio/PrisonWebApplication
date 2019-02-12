@@ -1,33 +1,52 @@
 package com.realdolmen.erkoja.boxed.repositories;
 
+import com.realdolmen.erkoja.boxed.domain.Crime;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
+import java.io.Serializable;
 import java.util.List;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class PrisonerRepository extends AbstractRepository<Prisoner, Integer> {
+public class PrisonerRepository extends AbstractRepository<Prisoner, Integer> implements Serializable {
+
+    @Produces
+    @PersistenceContext
+    private EntityManager em;
+
+    public PrisonerRepository() {
+        super(Prisoner.class);
+    }
 
     public PrisonerRepository(EntityManager em) {
-        super(em, Prisoner.class);
+        super(Prisoner.class);
+        this.em = em;
     }
-    
-    public List findPrisonersToRelease(Integer currentDay){
+
+    @Override
+    protected EntityManager em() {
+        return this.em;
+    }
+
+    public List findPrisonersToRelease(Integer currentDay) {
         Query q = em.createNamedQuery(Prisoner.FIND_TORELEASE, Prisoner.class);
         q.setParameter("currentDate", currentDay);
         List<Prisoner> prisonersToRelease = q.getResultList();
         return prisonersToRelease;
     }
-    
-    public List findPrisonersInIsolation(Integer currentDay){
+
+    public List findPrisonersInIsolation(Integer currentDay) {
         Query q = em.createNamedQuery(Prisoner.FIND_INISOLATION, Prisoner.class);
         q.setParameter("currentDate", currentDay);
         List<Prisoner> prisonersInIsolation = q.getResultList();
         return prisonersInIsolation;
-    }   
-        public List findPrisonersWithFinishedJob(Integer currentDay){
+    }
+
+    public List findPrisonersWithFinishedJob(Integer currentDay) {
         Query q = em.createNamedQuery(Prisoner.FIND_JOBS, Prisoner.class);
         q.setParameter("currentDate", currentDay);
         List<Prisoner> prisonersWithJob = q.getResultList();
         return prisonersWithJob;
-    }   
+    }
 }

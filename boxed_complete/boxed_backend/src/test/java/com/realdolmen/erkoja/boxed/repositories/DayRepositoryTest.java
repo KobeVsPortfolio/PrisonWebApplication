@@ -47,7 +47,9 @@ public class DayRepositoryTest {
     public void saveDay() throws Exception {
         List<Day> initial = dayRepository.findAll();
         Day day = new Day();
+        dayRepository.begin();
         dayRepository.save(day);
+        dayRepository.commit();
         List<Day> afterSave = dayRepository.findAll();
         assertEquals(initial.size(), afterSave.size() - 1);
     }

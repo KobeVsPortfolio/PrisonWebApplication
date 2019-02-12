@@ -46,7 +46,6 @@ public class CellBlockFacadeTest {
        verify(cellBlockService, times(1)).findAll();
        verify(cellBlockMapper, times(1)).apply(cellBlocks.get(0));
        assertNotNull(result);
-       
     }
         
         

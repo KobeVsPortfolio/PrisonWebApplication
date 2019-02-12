@@ -58,30 +58,6 @@ public class CellBlockController implements Serializable {
     public void setCellBlockId(String cellBlockId) {
         this.cellBlockId = cellBlockId;
     }
-    
-    public Cell getCurrentCell() {
-        return currentCell;
-    }
-
-    public void setCurrentCell(Cell currentCell) {
-        this.currentCell = currentCell;
-    }
-
-    public Prisoner getPrisoner() {
-        return prisoner;
-    }
-
-    public void setPrisoner(Prisoner prisoner) {
-        this.prisoner = prisoner;
-    }
-
-    public List<Prisoner> getPrisonerList() {
-        return prisonerList;
-    }
-
-    public void setPrisonerList(List<Prisoner> prisonerList) {
-        this.prisonerList = prisonerList;
-    }
 
     public List<CellDto> getCellsA() {
         return cellsA;
@@ -115,6 +91,30 @@ public class CellBlockController implements Serializable {
         this.cellsD = cellsD;
     }
 
+    public Cell getCurrentCell() {
+        return currentCell;
+    }
+
+    public void setCurrentCell(Cell currentCell) {
+        this.currentCell = currentCell;
+    }
+
+    public Prisoner getPrisoner() {
+        return prisoner;
+    }
+
+    public void setPrisoner(Prisoner prisoner) {
+        this.prisoner = prisoner;
+    }
+
+    public List<Prisoner> getPrisonerList() {
+        return prisonerList;
+    }
+
+    public void setPrisonerList(List<Prisoner> prisonerList) {
+        this.prisonerList = prisonerList;
+    }
+
     public List<CellBlockDto> getCellBlocks() {
         return cellBlocks;
     }
@@ -130,5 +130,6 @@ public class CellBlockController implements Serializable {
     public void setCellBlockFacade(CellBlockFacade cellBlockFacade) {
         this.cellBlockFacade = cellBlockFacade;
     }
+    
     
 }

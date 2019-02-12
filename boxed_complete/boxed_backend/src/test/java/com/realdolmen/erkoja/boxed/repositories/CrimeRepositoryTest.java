@@ -47,8 +47,11 @@ public class CrimeRepositoryTest {
         Crime cr = new Crime();
         cr.setName("fight");
         cr.setPunishment(14);
+        crimeRepository.begin();
         crimeRepository.save(cr);
+        crimeRepository.commit();
         assertEquals(entityManager.find(Crime.class, 4).getName(), "fight");
+        
     }
 
     @Test
