@@ -19,9 +19,8 @@ public class CellFacade implements Serializable {
 
     public CellFacade() {
     }
-    
-
-    public List<CellDto> findAll() {
+   
+    public List<CellDto> findAllCells() {
         List<Cell> cells = cellService.findAllCells();
         return cells.stream()
                 .map(cell -> new CellMapper().apply(cell))

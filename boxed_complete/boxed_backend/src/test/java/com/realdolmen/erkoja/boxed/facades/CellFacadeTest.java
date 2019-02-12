@@ -28,7 +28,7 @@ public class CellFacadeTest {
         Cell cell = new Cell();
         cell.setCellNr("A15");
         cells.add(cell);
-        List<CellDto> result = cellFacade.findAll();
+        List<CellDto> result = cellFacade.findAllCells();
         when(cellService.findAllCells()).thenReturn(cells);
         assertNotNull(result);
                
