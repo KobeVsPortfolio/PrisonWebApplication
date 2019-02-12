@@ -31,7 +31,6 @@ public class PrisonController implements Serializable{
     @PostConstruct
     public void init(){
         generating = false;
-        cellBlocks = cellBlockFacade.findAll();
     }
 
     public void toggleDayGeneration(){
