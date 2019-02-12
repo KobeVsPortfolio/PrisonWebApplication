@@ -19,13 +19,8 @@ public class CellFacade implements Serializable {
 
     public CellFacade() {
     }
-    
-    @PostConstruct
-    public void init(){
-        System.out.println("CellFacade constructed");
-    }
-
-    public List<CellDto> findAllPersons() {
+   
+    public List<CellDto> findAllCells() {
         List<Cell> cells = cellService.findAllCells();
         return cells.stream()
                 .map(cell -> new CellMapper().apply(cell))
