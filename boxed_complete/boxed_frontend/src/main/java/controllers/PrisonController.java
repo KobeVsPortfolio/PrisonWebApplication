@@ -1,9 +1,10 @@
 package controllers;
 
+import com.realdolmen.erkoja.boxed.domain.Cell;
+import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
-import domain.CellBlock;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.inject.Named;
 @SessionScoped
 public class PrisonController implements Serializable{
     
-    private List<CellBlockDto> cellBlocks;
+    private List<CellBlock> cellBlocks;
     
     @Inject
     private PrisonFacade prisonFacade;
@@ -31,6 +32,8 @@ public class PrisonController implements Serializable{
     @PostConstruct
     public void init(){
         generating = false;
+        cellBlocks = cellBlockFacade.findAllTest();
+
     }
 
     public void toggleDayGeneration(){
@@ -38,13 +41,15 @@ public class PrisonController implements Serializable{
         generating = (generating == false)?true:false;
     }
 
-    public List<CellBlockDto> getCellBlocks() {
+    public List<CellBlock> getCellBlocks() {
         return cellBlocks;
     }
 
-    public void setCellBlocks(List<CellBlockDto> cellBlocks) {
+    public void setCellBlocks(List<CellBlock> cellBlocks) {
         this.cellBlocks = cellBlocks;
     }
+
+    
     
     
     
