@@ -12,6 +12,9 @@ package com.realdolmen.erkoja.boxed.dtos;
 public class DayDto {
     private Integer dayNr;
 
+    public DayDto() {
+    }
+
     public DayDto(Integer dayNr) {
         this.dayNr = dayNr;
     }
