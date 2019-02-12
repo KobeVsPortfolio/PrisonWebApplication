@@ -54,7 +54,9 @@ public class CellBlockRepositoryTest {
     public void saveCellBlock() throws Exception {
         CellBlock cb = new CellBlock();
         cb.setCellBlockId("D");
+        cellBlockRepository.begin();
         cellBlockRepository.save(cb);
+        cellBlockRepository.commit();
         assertNotNull(entityManager.find(CellBlock.class, "D"));
     }
 

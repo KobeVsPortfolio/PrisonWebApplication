@@ -4,6 +4,8 @@ import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.domain.Cell;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
+import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
+import com.realdolmen.erkoja.boxed.dtos.CellDto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +20,14 @@ public class CellBlockController implements Serializable {
 
     
     private String cellBlockId;
-    private List<Cell> cellsA;
-    private List<Cell> cellsB;
-    private List<Cell> cellsC;
-    private List<Cell> cellsD;
+    private List<CellDto> cellsA;
+    private List<CellDto> cellsB;
+    private List<CellDto> cellsC;
+    private List<CellDto> cellsD;
     private Cell currentCell;
     private Prisoner prisoner;
     private List<Prisoner> prisonerList;
-    private List<CellBlock> cellBlocks; 
+    private List<CellBlockDto> cellBlocks; 
     
     @Inject
     private CellBlockFacade cellBlockFacade;
@@ -39,58 +41,6 @@ public class CellBlockController implements Serializable {
         cellsB = cellBlocks.get(1).getCells();
         cellsC = cellBlocks.get(2).getCells();
         cellsD = cellBlocks.get(3).getCells();
-        
-        
-        for(int i = 1; i<31; i++){
-            Cell cell = new Cell();
-            prisoner = new Prisoner();
-            prisonerList = new ArrayList<>();
-            prisoner.setName("Bob " + i);
-            prisonerList.add(prisoner);
-            prisonerList.add(prisoner);
-            cell.setPrisonerList(prisonerList);
-            cell.setCellNr("A"+i);
-            cellsA.add(cell);
-        }
-        
-        for(int i = 31; i<61; i++){
-            Cell cell = new Cell();
-            prisonerList = new ArrayList<>();
-            cell.setPrisonerList(prisonerList);
-            cell.setCellNr("A" + i);
-            cellsA.add(cell);
-        }
-
-        for (int i = 1; i < 61; i++) {
-            Cell cell = new Cell();
-            cell.setCellNr("B" + i);
-            prisoner = new Prisoner();
-            prisonerList = new ArrayList<>();
-            prisoner.setName("Frank " + i);
-            prisonerList.add(prisoner);
-            cell.setPrisonerList(prisonerList);
-            cell.setCellNr("B"+i);
-            cellsB.add(cell);
-        }
-
-        for (int i = 1; i < 61; i++) {
-            Cell cell = new Cell();
-            prisonerList = new ArrayList<>();
-            cell.setPrisonerList(prisonerList);
-            cell.setCellNr("C" + i);
-            cellsC.add(cell);
-        }
-
-        for (int i = 1; i < 61; i++) {
-            Cell cell = new Cell();
-            prisoner = new Prisoner();
-            prisonerList = new ArrayList<>();
-            prisoner.setName("John " + i);
-            prisonerList.add(prisoner);
-            cell.setPrisonerList(prisonerList);
-            cell.setCellNr("D"+i);
-            cellsD.add(cell);
-        }
     }
 
     public String createStyle(Cell c) {
@@ -109,35 +59,35 @@ public class CellBlockController implements Serializable {
         this.cellBlockId = cellBlockId;
     }
 
-    public List<Cell> getCellsA() {
+    public List<CellDto> getCellsA() {
         return cellsA;
     }
 
-    public void setCellsA(List<Cell> cellsA) {
+    public void setCellsA(List<CellDto> cellsA) {
         this.cellsA = cellsA;
     }
 
-    public List<Cell> getCellsB() {
+    public List<CellDto> getCellsB() {
         return cellsB;
     }
 
-    public void setCellsB(List<Cell> cellsB) {
+    public void setCellsB(List<CellDto> cellsB) {
         this.cellsB = cellsB;
     }
 
-    public List<Cell> getCellsC() {
+    public List<CellDto> getCellsC() {
         return cellsC;
     }
 
-    public void setCellsC(List<Cell> cellsC) {
+    public void setCellsC(List<CellDto> cellsC) {
         this.cellsC = cellsC;
     }
 
-    public List<Cell> getCellsD() {
+    public List<CellDto> getCellsD() {
         return cellsD;
     }
 
-    public void setCellsD(List<Cell> cellsD) {
+    public void setCellsD(List<CellDto> cellsD) {
         this.cellsD = cellsD;
     }
 
@@ -164,4 +114,22 @@ public class CellBlockController implements Serializable {
     public void setPrisonerList(List<Prisoner> prisonerList) {
         this.prisonerList = prisonerList;
     }
+
+    public List<CellBlockDto> getCellBlocks() {
+        return cellBlocks;
+    }
+
+    public void setCellBlocks(List<CellBlockDto> cellBlocks) {
+        this.cellBlocks = cellBlocks;
+    }
+
+    public CellBlockFacade getCellBlockFacade() {
+        return cellBlockFacade;
+    }
+
+    public void setCellBlockFacade(CellBlockFacade cellBlockFacade) {
+        this.cellBlockFacade = cellBlockFacade;
+    }
+    
+    
 }

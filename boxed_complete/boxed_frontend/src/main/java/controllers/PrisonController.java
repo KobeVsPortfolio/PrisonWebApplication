@@ -18,7 +18,7 @@ import javax.inject.Named;
 @SessionScoped
 public class PrisonController implements Serializable{
     
-    private List<CellBlock> cellBlocks;
+    private List<CellBlockDto> cellBlocks;
     
     @Inject
     private PrisonFacade prisonFacade;
@@ -32,7 +32,7 @@ public class PrisonController implements Serializable{
     @PostConstruct
     public void init(){
         generating = false;
-        cellBlocks = cellBlockFacade.findAllTest();
+        cellBlocks = cellBlockFacade.findAll();
 
     }
 
@@ -41,11 +41,11 @@ public class PrisonController implements Serializable{
         generating = (generating == false)?true:false;
     }
 
-    public List<CellBlock> getCellBlocks() {
+    public List<CellBlockDto> getCellBlocks() {
         return cellBlocks;
     }
 
-    public void setCellBlocks(List<CellBlock> cellBlocks) {
+    public void setCellBlocks(List<CellBlockDto> cellBlocks) {
         this.cellBlocks = cellBlocks;
     }
 

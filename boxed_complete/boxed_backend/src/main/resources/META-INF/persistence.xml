@@ -7,7 +7,7 @@
 
     <persistence-unit name="BoxedPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <non-jta-data-source>java:/BoxedPersistenceUnit</non-jta-data-source>
+        <jta-data-source>java:/BoxedPersistenceUnit</jta-data-source>
 
 
         <class>com.realdolmen.erkoja.boxed.domain.Cell</class>

@@ -5,79 +5,78 @@ import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 public abstract class AbstractRepository<C, T>{
 
     
-    protected EntityManager em;
-    private EntityTransaction transaction;
+    protected abstract EntityManager em();
+
     private Class<C> entityClass;
-
-
-    public AbstractRepository(EntityManager em,Class<C> entity) {
-        this.em = em;
-        this.entityClass = entity;
-    }
 
     public AbstractRepository(Class<C> entityClass) {
         this.entityClass = entityClass;
-        this.em = Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager();
     }
-    
-    
-
 
     public C findById(T id) {
 
-        return em.find(entityClass,id);
+        return em().find(entityClass,id);
     }
-
+    
+    @Transactional
     public void save(C c) {
         if (c != null) {
-            begin();
-            em.persist(c);
-            commit();
+            try {
+                em().persist(c);
+            } catch (Exception ex) {
+                Logger.getLogger(AbstractRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-
+    
+    @Transactional
     public void delete(T id) {
         begin();
-        em.remove(em.find(entityClass, id));
+        em().remove(em().find(entityClass, id));
         commit();
     }
 
     public List<C> findAll(){
         String clazzz = entityClass.getName();
-        return em.createQuery("select c from "+clazzz+" c").getResultList();
+        return em().createQuery("select c from "+clazzz+" c").getResultList();
     }
-
+    
+    @Transactional
     public void update(C c) {
         if (c != null) {
-            begin();
-            em.merge(c);
-            commit();
+            try {
+                em().merge(c);
+                commit();
+            } catch (Exception ex) {
+                Logger.getLogger(AbstractRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-
+    
     protected void commit() {
-        if (transaction != null && transaction.isActive()) {
-            transaction.commit();
-        }
+       em().getTransaction().commit();
     }
 
     protected void begin() {
-        transaction = em.getTransaction();
-        if (!transaction.isActive()) {
-            transaction.begin();
+        em().getTransaction().begin();
         }
-    }
-
-    protected void close() {
-        if (em != null) {
-            em.close();
-        }
+    
+    @PreDestroy
+    public void close() {
+        if (em() != null) {
+            em().close();
+        }   
     }
 }
 
