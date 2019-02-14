@@ -17,6 +17,12 @@ public class Crime {
     public Crime() {
     }
 
+    public Crime(Integer id, String name, Integer punishment) {
+        this.id = id;
+        this.name = name;
+        this.punishment = punishment;
+    }
+    
     public Integer getId() {
         return id;
     }

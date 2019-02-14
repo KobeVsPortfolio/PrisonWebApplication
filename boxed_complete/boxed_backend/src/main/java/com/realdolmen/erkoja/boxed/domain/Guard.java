@@ -16,6 +16,10 @@ public class Guard extends Person {
     public Guard() {
     }
 
+    public Guard(Grade grade) {
+        this.grade = grade;
+    }
+
     public Guard(CellBlock cellBlock, Grade grade) {
         this.cellBlock = cellBlock;
         this.grade = grade;

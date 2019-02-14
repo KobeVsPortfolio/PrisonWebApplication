@@ -35,8 +35,15 @@ public class Prisoner extends Person {
     private Integer jobDuration;
 
     public Prisoner() {
-    }
+    }    
 
+    public Prisoner(Boolean isolated, Integer isolationDuration, Integer releaseDate, Integer jobDuration) {
+        this.isolated = isolated;
+        this.isolationDuration = isolationDuration;
+        this.releaseDate = releaseDate;
+        this.jobDuration = jobDuration;
+    }
+    
     public void fight(Prisoner p) {
 
     }

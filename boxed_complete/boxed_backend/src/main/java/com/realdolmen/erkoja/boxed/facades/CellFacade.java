@@ -2,15 +2,20 @@
 package com.realdolmen.erkoja.boxed.facades;
 
 import com.realdolmen.erkoja.boxed.domain.Cell;
+import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import com.realdolmen.erkoja.boxed.repositories.CellRepository;
 import com.realdolmen.erkoja.boxed.services.CellService;
 import com.realdolmen.erkoja.boxed.dtos.CellDto;
+import com.realdolmen.erkoja.boxed.dtos.PrisonerDto;
+import com.realdolmen.erkoja.boxed.mappers.CellDTOMapper;
 import com.realdolmen.erkoja.boxed.mappers.CellMapper;
+import com.realdolmen.erkoja.boxed.mappers.PrisonerDTOMapper;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 public class CellFacade implements Serializable {
 
@@ -27,4 +32,13 @@ public class CellFacade implements Serializable {
                 .sorted((c1, c2) -> c1.getCellNr().compareTo(c2.getCellNr()))
                 .collect(Collectors.toList());
     } 
+    
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void addPrisoner(PrisonerDto pDto, CellDto cDto){
+        CellDTOMapper cdm = new CellDTOMapper();
+        PrisonerDTOMapper pdm = new PrisonerDTOMapper();
+        Prisoner p = pdm.apply(pDto);
+        Cell c = cdm.apply(cDto);
+        cellService.addPrisoner(p, c);
+    }
 }

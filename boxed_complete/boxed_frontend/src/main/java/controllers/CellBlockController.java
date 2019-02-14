@@ -3,8 +3,12 @@ package controllers;
 import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import com.realdolmen.erkoja.boxed.dtos.CellDto;
+import com.realdolmen.erkoja.boxed.dtos.CrimeDto;
 import com.realdolmen.erkoja.boxed.dtos.PrisonerDto;
+import com.realdolmen.erkoja.boxed.facades.CellFacade;
+import com.realdolmen.erkoja.boxed.facades.CrimeFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -22,22 +26,44 @@ public class CellBlockController implements Serializable {
     private List<CellDto> cellsC;
     private List<CellDto> cellsD;
     private CellDto currentCell;
+    private PrisonerDto currentPrisoner;
     private PrisonerDto prisoner;
+    private String prisonerName;
     private List<PrisonerDto> prisonerList;
-    private List<CellBlockDto> cellBlocks; 
+    private List<CellBlockDto> cellBlocks;
+    private List<CrimeDto> crimes;
+    private List<String> crimeNames;
+    private String currentCrimeName;
+    private List<CellDto> allCells;
     
     @Inject
     private CellBlockFacade cellBlockFacade;
+    
+    @Inject
+    private CellFacade cellFacade;
+    
+    @Inject
+    private CrimeFacade crimeFacade;
     
     @PostConstruct
     public void init() {
         
         cellBlocks = cellBlockFacade.findAllCellBlocks();
+        allCells = cellFacade.findAllCells();
+        
+        crimes = crimeFacade.findAll();
+        crimeNames = new ArrayList<>();
+        
+        for(CrimeDto c : crimes){
+            String name = c.getName();
+            crimeNames.add(name);
+        }
         
         cellsA = cellBlocks.get(0).getCells();
         cellsB = cellBlocks.get(1).getCells();
         cellsC = cellBlocks.get(2).getCells();
         cellsD = cellBlocks.get(3).getCells();
+        
     }
 
     public String createStyle(CellDto c) {
@@ -46,6 +72,26 @@ public class CellBlockController implements Serializable {
         } else {
             return "background-color: #5CB85C;";
         }
+    }
+    
+    public void addPrisoner(String prisonerName, CellDto currentCell, String currentCrimeName){ 
+        List<CrimeDto> prisonerCrimes = new ArrayList<>();
+        Integer releaseDate = 0;
+        for(CrimeDto c : crimes){
+            if(c.getName() == currentCrimeName){
+                prisonerCrimes.add(c);
+                releaseDate = c.getPunishment();
+            }
+        }
+          currentPrisoner = new PrisonerDto(null, prisonerName, false, null, releaseDate, null);
+          currentPrisoner.setCrimes(prisonerCrimes);
+        
+        for(CellDto cell : allCells){
+            if(cell.getCellNr() == currentCell.getCellNr()){
+                currentCell = cell;
+            }
+        }
+        cellFacade.addPrisoner(currentPrisoner, currentCell);
     }
 
     public String getCellBlockId() {
@@ -127,7 +173,64 @@ public class CellBlockController implements Serializable {
     public void setCellBlockFacade(CellBlockFacade cellBlockFacade) {
         this.cellBlockFacade = cellBlockFacade;
     }
-    
-    
-    
+
+    public PrisonerDto getCurrentPrisoner() {
+        return currentPrisoner;
+    }
+
+    public void setCurrentPrisoner(PrisonerDto currentPrisoner) {
+        this.currentPrisoner = currentPrisoner;
+    }
+
+    public CellFacade getCellFacade() {
+        return cellFacade;
+    }
+
+    public void setCellFacade(CellFacade cellFacade) {
+        this.cellFacade = cellFacade;
+    }
+
+    public List<CrimeDto> getCrimes() {
+        return crimes;
+    }
+
+    public void setCrimes(List<CrimeDto> crimes) {
+        this.crimes = crimes;
+    }
+
+    public CrimeFacade getCrimeFacade() {
+        return crimeFacade;
+    }
+
+    public void setCrimeFacade(CrimeFacade crimeFacade) {
+        this.crimeFacade = crimeFacade;
+    }
+
+    public List<String> getCrimeNames() {
+        return crimeNames;
+    }
+
+    public String getCurrentCrimeName() {
+        return currentCrimeName;
+    }
+
+    public void setCurrentCrimeName(String currentCrimeName) {
+        this.currentCrimeName = currentCrimeName;
+    }
+
+    public String getPrisonerName() {
+        return prisonerName;
+    }
+
+    public void setPrisonerName(String prisonerName) {
+        this.prisonerName = prisonerName;
+    }
+
+    public List<CellDto> getAllCells() {
+        return allCells;
+    }
+
+    public void setAllCells(List<CellDto> allCells) {
+        this.allCells = allCells;
+    }
 }

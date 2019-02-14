@@ -35,7 +35,6 @@ public class PrisonController implements Serializable{
 
     public void toggleDayGeneration(){
         prisonFacade.toggleTime(generating);
-        generating = (generating == false)?true:false;
     }
 
     public List<CellBlockDto> getCellBlocks() {

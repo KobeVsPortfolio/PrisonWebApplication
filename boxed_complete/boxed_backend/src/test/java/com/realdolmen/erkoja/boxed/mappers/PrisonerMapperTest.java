@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.realdolmen.erkoja.boxed.mappers;
 
 import com.realdolmen.erkoja.boxed.domain.Cell;
@@ -19,11 +15,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author JVDBG19
- */
 public class PrisonerMapperTest {
+    
    @Test
    public void prisonerDtoEqualsprisonerTest(){
        Prisoner prisoner = new Prisoner();

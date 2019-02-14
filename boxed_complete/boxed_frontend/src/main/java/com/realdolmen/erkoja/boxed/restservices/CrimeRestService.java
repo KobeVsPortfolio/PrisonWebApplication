@@ -1,11 +1,8 @@
 
 package com.realdolmen.erkoja.boxed.restservices;
 
-import com.realdolmen.erkoja.boxed.domain.Cell;
-import com.realdolmen.erkoja.boxed.dtos.CellDto;
-import com.realdolmen.erkoja.boxed.facades.CellFacade;
-import com.realdolmen.erkoja.boxed.services.CellService;
-import java.util.ArrayList;
+import com.realdolmen.erkoja.boxed.dtos.CrimeDto;
+import com.realdolmen.erkoja.boxed.facades.CrimeFacade;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -14,18 +11,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("cell")
-public class CellRestService {
+@Path("crime")
+public class CrimeRestService {
     
-    @Inject CellFacade cellFacade;
+    @Inject CrimeFacade crimeFacade;
     
     @Path("list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAllCells(){
-        List<CellDto> cells = cellFacade.findAllCells();
+        List<CrimeDto> crimes = crimeFacade.findAll();
         return Response.status(Response.Status.OK)
-                .entity(cells)
+                .entity(crimes)
                 .build();
     }
     
