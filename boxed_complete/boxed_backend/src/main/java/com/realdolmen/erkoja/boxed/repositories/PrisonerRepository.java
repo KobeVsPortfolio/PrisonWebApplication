@@ -4,6 +4,7 @@ import com.realdolmen.erkoja.boxed.domain.Crime;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +15,11 @@ public class PrisonerRepository extends AbstractRepository<Prisoner, Integer> im
     @Produces
     @PersistenceContext
     private EntityManager em;
+    
+     @PostConstruct
+    public void init(){
+       System.out.println("PersonRepository constructed "+(em == null));
+    }
 
     public PrisonerRepository() {
         super(Prisoner.class);

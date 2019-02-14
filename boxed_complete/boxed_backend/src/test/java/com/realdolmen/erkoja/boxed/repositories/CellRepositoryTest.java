@@ -47,9 +47,7 @@ public class CellRepositoryTest {
         Cell c = new Cell();
         c.setCellNr("123");
         c.setSize(1);
-        cellRepository.begin();
         cellRepository.save(c);
-        cellRepository.commit();
         assertNotNull(entityManager.find(Cell.class, 4));
         
     }

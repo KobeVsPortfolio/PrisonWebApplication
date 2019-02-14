@@ -46,9 +46,7 @@ public class JobRepositoryTest {
         Job j = new Job();
         j.setName("washer");
         j.setDuration(120);
-        jobRepository.begin();
         jobRepository.save(j);
-        jobRepository.commit();
         assertEquals(entityManager.find(Job.class, 4).getName(), "washer");
     }
 

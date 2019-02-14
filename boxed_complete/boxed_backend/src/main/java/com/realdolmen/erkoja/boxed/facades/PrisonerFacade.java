@@ -12,7 +12,8 @@ import javax.inject.Inject;
 
 
 public class PrisonerFacade implements Serializable{
-         @Inject
+    
+    @Inject
     private PrisonerService prisonerService;
 
     public PrisonerFacade() {

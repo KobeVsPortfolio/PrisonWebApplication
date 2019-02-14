@@ -24,31 +24,28 @@ public abstract class AbstractRepository<C, T>{
         this.entityClass = entityClass;
     }
     
-    @Transactional
     public C findById(T id) {
-
         return em().find(entityClass,id);
     }
     
-    @Transactional
     public void save(C c) {
         if (c != null) {
             try {
+                begin();
                 em().persist(c);
+                commit();
             } catch (Exception ex) {
                 Logger.getLogger(AbstractRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    @Transactional
     public void delete(T id) {
         begin();
         em().remove(em().find(entityClass, id));
         commit();
     }
     
-    @Transactional
     public List<C> findAll(){
         String clazzz = entityClass.getName();
         return em().createQuery("select c from "+clazzz+" c").getResultList();
