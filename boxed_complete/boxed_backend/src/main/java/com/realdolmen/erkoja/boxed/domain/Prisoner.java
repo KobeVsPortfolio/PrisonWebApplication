@@ -2,6 +2,8 @@ package com.realdolmen.erkoja.boxed.domain;
 
 import java.util.List;
 import javax.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @NamedQueries({
@@ -27,6 +29,7 @@ public class Prisoner extends Person {
     @Column(nullable = false)
     private Integer releaseDate;
     
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne
     private Cell cell;
     private Integer jobDuration;

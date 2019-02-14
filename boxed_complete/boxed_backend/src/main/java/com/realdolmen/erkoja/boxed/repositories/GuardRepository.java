@@ -6,11 +6,12 @@ import java.io.Serializable;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 public class GuardRepository extends AbstractRepository<Guard,Integer> implements Serializable{
 
     @Produces
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     public GuardRepository() {

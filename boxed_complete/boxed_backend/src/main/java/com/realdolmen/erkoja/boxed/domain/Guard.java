@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "Guard")
 public class Guard extends Person {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cellBlock")
     private CellBlock cellBlock;
     
