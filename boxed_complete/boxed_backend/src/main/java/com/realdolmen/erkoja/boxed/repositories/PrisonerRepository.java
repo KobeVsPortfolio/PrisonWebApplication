@@ -18,7 +18,7 @@ public class PrisonerRepository extends AbstractRepository<Prisoner, Integer> im
     
      @PostConstruct
     public void init(){
-       System.out.println("PersonRepository constructed "+(em == null));
+       System.out.println("PrisonerRepository constructed "+(em == null));
     }
 
     public PrisonerRepository() {

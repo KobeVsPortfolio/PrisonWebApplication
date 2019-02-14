@@ -143,6 +143,7 @@
                                 <b:commandButton style="width: 100%" value="Add Prisoner" styleClass="btn-primary">
                                     <f:ajax
                                         event="click"
+                                        listener="#{cellBlockController.addPrisoner(cellBlockController.prisonerName, cellBlockController.currentCell, cellBlockController.currentCrimeName)}"
                                         render="prisonerinfo"> 
                                     </f:ajax>
                                 </b:commandButton>
