@@ -2,6 +2,8 @@ package com.realdolmen.erkoja.boxed.domain;
 
 import java.util.List;
 import javax.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "Cell")
@@ -18,7 +20,8 @@ public class Cell {
     
     @Column(nullable = false)
     private String cellNr;
-
+    
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne
     @JoinColumn(name = "cellBlock")
     private CellBlock cellBlock;
@@ -28,6 +31,7 @@ public class Cell {
     
     private boolean isolationCell;
     
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "cell")
     private List<Prisoner> prisonerList;
 

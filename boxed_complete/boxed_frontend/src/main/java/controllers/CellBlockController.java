@@ -1,21 +1,18 @@
 package controllers;
 
-import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
-import com.realdolmen.erkoja.boxed.domain.Cell;
-import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import com.realdolmen.erkoja.boxed.dtos.CellDto;
+import com.realdolmen.erkoja.boxed.dtos.PrisonerDto;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-@RequestScoped
+@ApplicationScoped
 public class CellBlockController implements Serializable {
 
     
@@ -24,9 +21,9 @@ public class CellBlockController implements Serializable {
     private List<CellDto> cellsB;
     private List<CellDto> cellsC;
     private List<CellDto> cellsD;
-    private Cell currentCell;
-    private Prisoner prisoner;
-    private List<Prisoner> prisonerList;
+    private CellDto currentCell;
+    private PrisonerDto prisoner;
+    private List<PrisonerDto> prisonerList;
     private List<CellBlockDto> cellBlocks; 
     
     @Inject
@@ -35,7 +32,7 @@ public class CellBlockController implements Serializable {
     @PostConstruct
     public void init() {
         
-        cellBlocks = cellBlockFacade.findAll();
+        cellBlocks = cellBlockFacade.findAllCellBlocks();
         
         cellsA = cellBlocks.get(0).getCells();
         cellsB = cellBlocks.get(1).getCells();
@@ -43,7 +40,7 @@ public class CellBlockController implements Serializable {
         cellsD = cellBlocks.get(3).getCells();
     }
 
-    public String createStyle(Cell c) {
+    public String createStyle(CellDto c) {
         if (c.getPrisonerList().size() != 0) {
             return "background-color: #D9534F;";
         } else {
@@ -91,27 +88,27 @@ public class CellBlockController implements Serializable {
         this.cellsD = cellsD;
     }
 
-    public Cell getCurrentCell() {
+    public CellDto getCurrentCell() {
         return currentCell;
     }
 
-    public void setCurrentCell(Cell currentCell) {
+    public void setCurrentCell(CellDto currentCell) {
         this.currentCell = currentCell;
     }
 
-    public Prisoner getPrisoner() {
+    public PrisonerDto getPrisoner() {
         return prisoner;
     }
 
-    public void setPrisoner(Prisoner prisoner) {
+    public void setPrisoner(PrisonerDto prisoner) {
         this.prisoner = prisoner;
     }
 
-    public List<Prisoner> getPrisonerList() {
+    public List<PrisonerDto> getPrisonerList() {
         return prisonerList;
     }
 
-    public void setPrisonerList(List<Prisoner> prisonerList) {
+    public void setPrisonerList(List<PrisonerDto> prisonerList) {
         this.prisonerList = prisonerList;
     }
 
@@ -130,6 +127,7 @@ public class CellBlockController implements Serializable {
     public void setCellBlockFacade(CellBlockFacade cellBlockFacade) {
         this.cellBlockFacade = cellBlockFacade;
     }
+    
     
     
 }

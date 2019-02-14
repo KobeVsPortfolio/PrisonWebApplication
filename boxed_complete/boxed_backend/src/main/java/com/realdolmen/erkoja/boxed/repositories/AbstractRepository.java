@@ -23,7 +23,8 @@ public abstract class AbstractRepository<C, T>{
     public AbstractRepository(Class<C> entityClass) {
         this.entityClass = entityClass;
     }
-
+    
+    @Transactional
     public C findById(T id) {
 
         return em().find(entityClass,id);
@@ -46,7 +47,8 @@ public abstract class AbstractRepository<C, T>{
         em().remove(em().find(entityClass, id));
         commit();
     }
-
+    
+    @Transactional
     public List<C> findAll(){
         String clazzz = entityClass.getName();
         return em().createQuery("select c from "+clazzz+" c").getResultList();

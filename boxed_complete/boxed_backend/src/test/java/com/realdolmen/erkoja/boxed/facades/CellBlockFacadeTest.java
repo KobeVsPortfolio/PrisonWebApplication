@@ -41,14 +41,12 @@ public class CellBlockFacadeTest {
        CellBlockDto cbDto = new CellBlockDto();
        cellBlockDtos.add(cbDto);
        when(cellBlockService.findAll()).thenReturn(cellBlocks);
-       when(cellBlockMapper.apply(cellBlocks.get(0))).thenReturn(cellBlockDtos.get(0));
-       List<CellBlockDto> result = cellBlockFacade.findAll();
+//       when(cellBlockMapper.apply(cellBlocks.get(0))).thenReturn(cellBlockDtos.get(0));
+       List<CellBlockDto> result = cellBlockFacade.findAllCellBlocks();
        verify(cellBlockService, times(1)).findAll();
-       verify(cellBlockMapper, times(1)).apply(cellBlocks.get(0));
+//       verify(cellBlockMapper, times(1)).apply(cellBlocks.get(0));
        assertNotNull(result);
-    }
-        
-        
+    }  
     }
     
 

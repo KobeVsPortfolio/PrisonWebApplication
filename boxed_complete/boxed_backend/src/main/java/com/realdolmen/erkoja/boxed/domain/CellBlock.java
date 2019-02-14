@@ -2,6 +2,8 @@ package com.realdolmen.erkoja.boxed.domain;
 
 import java.util.List;
 import javax.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "CellBlock")
@@ -11,10 +13,11 @@ public class CellBlock {
     @Column(nullable = false)
     private String cellBlockId;
     
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "cellBlock")
     private List<Cell> cells;
     
-    @OneToMany(mappedBy = "cellBlock")
+    @OneToMany(mappedBy = "cellBlock", fetch = FetchType.EAGER)
     private List<Guard> guards;
     
     public CellBlock() {

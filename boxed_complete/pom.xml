@@ -26,8 +26,8 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-7.0</artifactId>
-            <version>1.0.3.Final</version>
+            <artifactId>jboss-javaee-8.0</artifactId>
+            <version>1.0.2.Final</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -54,6 +54,18 @@
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-spi</artifactId>
+            <version>3.1.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-core-impl</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

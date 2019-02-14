@@ -1,21 +1,18 @@
 package controllers;
 
-import com.realdolmen.erkoja.boxed.domain.Cell;
-import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 
 @Named
-@SessionScoped
+@ApplicationScoped
 public class PrisonController implements Serializable{
     
     private List<CellBlockDto> cellBlocks;
@@ -33,7 +30,7 @@ public class PrisonController implements Serializable{
     @PostConstruct
     public void init(){
         generating = false;
-        cellBlocks = cellBlockFacade.findAll();
+        cellBlocks = cellBlockFacade.findAllCellBlocks();
     }
 
     public void toggleDayGeneration(){
