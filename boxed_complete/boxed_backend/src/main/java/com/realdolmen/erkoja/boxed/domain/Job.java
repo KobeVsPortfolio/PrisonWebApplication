@@ -18,6 +18,14 @@ public class Job {
     public Job() {
     }
 
+    public Job(Integer id, String name, Integer duration) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+    }
+    
+    
+
     public Integer getId() {
         return id;
     }

@@ -28,6 +28,10 @@ public class CellBlock {
         this.cellBlockId = cellBlockId;
     }
 
+    public CellBlock(String cellBlockId) {
+        this.cellBlockId = cellBlockId;
+    }
+
     public List<Cell> getCells() {
         return cells;
     }

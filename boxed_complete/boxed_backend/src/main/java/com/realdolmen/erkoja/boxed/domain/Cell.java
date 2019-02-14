@@ -45,8 +45,13 @@ public class Cell {
         this.isolationCell = isolationCell;
     }
     
+      public Cell(Integer cellId, String cellNr, Integer size, boolean isolationCell) {
+        this.cellNr = cellNr;
+        this.size = size;
+        this.cellBlock = cellBlock;
+        this.isolationCell = isolationCell;
+    }
     
-
     public void removePrisoner(Prisoner prisoner){
         if(this.prisonerList.contains(prisoner)){
             prisonerList.remove(prisoner);
