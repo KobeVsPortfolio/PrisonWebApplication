@@ -1,13 +1,14 @@
 package domain;
 
-public class Prisoner extends Person{
+public class Prisoner extends Person {
 
     private Integer isolated;
-    
+
     private Integer releaseDate;
 
     private Cell cell;
     private Integer jobDuration;
+    private Crime crime;
 
     public Prisoner() {
     }
@@ -15,7 +16,7 @@ public class Prisoner extends Person{
     public void fight(Prisoner p) {
 
     }
-    
+
     public Integer getIsolated() {
         return isolated;
     }
@@ -64,5 +65,12 @@ public class Prisoner extends Person{
         this.name = name;
     }
 
-    
+    public Crime getCrime() {
+        return crime;
+    }
+
+    public void setCrime(Crime crime) {
+        this.crime = crime;
+    }
+
 }

@@ -27,7 +27,6 @@ public class CellBlockController implements Serializable {
     private List<CellDto> cellsD;
     private CellDto currentCell;
     private PrisonerDto currentPrisoner;
-    private PrisonerDto prisoner;
     private String prisonerName;
     private List<PrisonerDto> prisonerList;
     private List<CellBlockDto> cellBlocks;
@@ -47,7 +46,6 @@ public class CellBlockController implements Serializable {
     
     @PostConstruct
     public void init() {
-        
         cellBlocks = cellBlockFacade.findAllCellBlocks();
         allCells = cellFacade.findAllCells();
         
@@ -93,6 +91,28 @@ public class CellBlockController implements Serializable {
         }
         cellFacade.addPrisoner(currentPrisoner, currentCell);
     }
+    
+    public void showPrisonerInfo(String prisonerName, String cellNr, String currentCrimeName){
+        currentPrisoner = new PrisonerDto();
+        currentPrisoner.setName(prisonerName);
+        CellDto c = new CellDto();
+        c.setCellNr(cellNr);
+        currentPrisoner.setCell(c);
+        List<CrimeDto> prisonerCrimes = new ArrayList<>();
+        Integer releaseDate = 0;
+        for(CrimeDto cDto : crimes){
+            if(cDto.getName() == currentCrimeName){
+                prisonerCrimes.add(cDto);
+                releaseDate = cDto.getPunishment();
+            }
+        }
+        currentPrisoner.setReleaseDate(releaseDate);
+        currentPrisoner.setCrimes(prisonerCrimes);
+        }
+    
+    public void deletePrisonerInfo(){
+        currentPrisoner = new PrisonerDto();
+        }
 
     public String getCellBlockId() {
         return cellBlockId;
@@ -140,14 +160,6 @@ public class CellBlockController implements Serializable {
 
     public void setCurrentCell(CellDto currentCell) {
         this.currentCell = currentCell;
-    }
-
-    public PrisonerDto getPrisoner() {
-        return prisoner;
-    }
-
-    public void setPrisoner(PrisonerDto prisoner) {
-        this.prisoner = prisoner;
     }
 
     public List<PrisonerDto> getPrisonerList() {

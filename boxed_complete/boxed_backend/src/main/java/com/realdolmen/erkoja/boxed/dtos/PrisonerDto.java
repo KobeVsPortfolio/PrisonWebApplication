@@ -14,6 +14,9 @@ public class PrisonerDto {
     private CellDto cell;
     private Integer jobDuration;
 
+    public PrisonerDto() {
+    }
+    
     public PrisonerDto(Integer id, String name, Boolean isolated, Integer isolationDuration, Integer releaseDate, Integer jobDuration) {
         this.id = id;
         this.name = name;
