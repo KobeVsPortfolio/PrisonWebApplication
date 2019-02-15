@@ -11,6 +11,9 @@ public class CellDto {
     private boolean isolationCell;
     private List<PrisonerDto> prisonerList;
 
+    public CellDto() {
+    }
+    
     public CellDto(Integer cellId,String cellNr, Integer size, boolean isolationCell) {
         this.cellId = cellId;
         this.cellNr = cellNr;

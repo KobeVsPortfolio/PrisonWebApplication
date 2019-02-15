@@ -101,16 +101,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <ui:repeat value="#{cellBlockController.currentPrisoner}" var="prisoner">
-                                            <tr>
-                                                <td><h:outputText value="#{cellBlockController.prisonerName}"/></td>
-                                                <td>
-                                                    <h:outputText value="#{cellBlockController.currentCrimeName}"/>
-                                                </td>
-                                                <td><h:outputText value="#{prisoner.cell.cellNr}"/></td>
-                                                <td><h:outputText value="#{prisoner.releaseDate}"/></td>
-                                            </tr>
-                                        </ui:repeat>
+                                        <tr>
+                                            <td><h:outputText value="#{cellBlockController.currentPrisoner.name}"/></td>
+                                            <td>
+                                                <h:outputText value="#{cellBlockController.currentPrisoner.crimes.get(0).name}"/>
+                                            </td>
+                                            <td><h:outputText value="#{cellBlockController.currentPrisoner.cell.cellNr}"/></td>
+                                            <td><h:outputText value="#{cellBlockController.currentPrisoner.releaseDate}"/></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </h:form>                                             
@@ -122,9 +120,8 @@
                                 <table class="table table-bordered">
                                     <tr>
                                         <td align="center" style="line-height: 40px;">Name</td>
-                                        <td>
-                                            <h:inputText styleClass="form-control" value="#{cellBlockController.prisonerName}">
-                                            </h:inputText>
+                                        <td>    
+                                            <h:inputText styleClass="form-control" value="#{cellBlockController.prisonerName}"></h:inputText>
                                         </td>
                                     </tr>
                                     <tr>
@@ -142,8 +139,15 @@
                                 </table>
                                 <b:commandButton style="width: 100%" value="Add Prisoner" styleClass="btn-primary">
                                     <f:ajax
-                                        event="click"
-                                        listener="#{cellBlockController.addPrisoner(cellBlockController.prisonerName, cellBlockController.currentCell, cellBlockController.currentCrimeName)}"
+                                        execute="@form"
+                                        listener="#{cellBlockController.showPrisonerInfo(cellBlockController.prisonerName, cellBlockController.currentCell.cellNr, cellBlockController.currentCrimeName)}"
+                                        render="prisonerinfo"> 
+                                    </f:ajax>
+                                </b:commandButton>
+                                <b:commandButton style="width: 100%" value="Delete Prisoner" styleClass="btn-warning">
+                                    <f:ajax
+                                        execute="@form"
+                                        listener="#{cellBlockController.deletePrisonerInfo()}"
                                         render="prisonerinfo"> 
                                     </f:ajax>
                                 </b:commandButton>

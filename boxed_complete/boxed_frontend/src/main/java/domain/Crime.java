@@ -1,20 +1,20 @@
+package domain;
 
-package com.realdolmen.erkoja.boxed.dtos;
-
-public class CrimeDto {
+public class Crime {
+    
     private Integer id;
     private String name;
     private Integer punishment;
 
-    public CrimeDto() {
+    public Crime() {
     }
 
-    public CrimeDto(Integer id, String name, Integer punishment) {
+    public Crime(Integer id, String name, Integer punishment) {
         this.id = id;
         this.name = name;
         this.punishment = punishment;
     }
-
+    
     public Integer getId() {
         return id;
     }
@@ -38,5 +38,6 @@ public class CrimeDto {
     public void setPunishment(Integer punishment) {
         this.punishment = punishment;
     }
+
     
 }
