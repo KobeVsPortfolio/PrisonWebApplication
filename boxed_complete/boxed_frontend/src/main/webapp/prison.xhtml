@@ -18,32 +18,27 @@
                 <b:row style="height:50%; margin-top: 2%">
                     <b:column col-lg="6" styleClass="text-center">
                         <b:navLink href="cellBlockA"><div style="border: 4px white solid;"><h1 style="line-height: 200px; font-size: 120px;">
-                                    <h:outputText value="#{prisonController.cellBlocks.get(0).cellBlockId}"/>
+                                    <h:outputText value="#{cellBlockController.cellBlocks.get(0).cellBlockId}"/>
                                 </h1></div></b:navLink>
                     </b:column>
                     <b:column col-lg="6" styleClass="text-center">
                         <b:navLink href="cellBlockB"><div style="border: 4px white solid;"><h1 style="line-height: 200px; font-size: 120px;">
-                                    <h:outputText value="#{prisonController.cellBlocks.get(1).cellBlockId}"/>
+                                    <h:outputText value="#{cellBlockController.cellBlocks.get(1).cellBlockId}"/>
                                 </h1></div></b:navLink>
                     </b:column>
                 </b:row>
                 <b:row style="height:50%">
                     <b:column col-lg="6" styleClass="text-center">
                         <b:navLink href="cellBlockC"><div style="border: 4px white solid;"><h1 style="line-height: 200px; font-size: 120px;">
-                                    <h:outputText value="#{prisonController.cellBlocks.get(2).cellBlockId}"/>
+                                    <h:outputText value="#{cellBlockController.cellBlocks.get(2).cellBlockId}"/>
                                 </h1></div></b:navLink>
                     </b:column>
                     <b:column col-lg="6" styleClass="text-center">
                         <b:navLink href="cellBlockD"><div style="border: 4px white solid;"><h1 style="line-height: 200px; font-size: 120px;">
-                                    <h:outputText value="#{prisonController.cellBlocks.get(3).cellBlockId}"/>
+                                    <h:outputText value="#{cellBlockController.cellBlocks.get(3).cellBlockId}"/>
                                 </h1></div></b:navLink>
                     </b:column>
                 </b:row>
-                <h:form>
-                    <b:button>
-                        <f:ajax event="click" onevent="#{prisonController.toggleDayGeneration()}"/>
-                </b:button>
-            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

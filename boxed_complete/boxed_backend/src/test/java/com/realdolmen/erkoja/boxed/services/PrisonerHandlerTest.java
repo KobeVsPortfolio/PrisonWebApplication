@@ -8,21 +8,26 @@ import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import com.realdolmen.erkoja.boxed.repositories.CellRepository;
 import com.realdolmen.erkoja.boxed.repositories.JobRepository;
 import com.realdolmen.erkoja.boxed.repositories.PrisonerRepository;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PrisonerHandlerTest {
-
+public class PrisonerHandlerTest implements Serializable{
+    
+    @InjectMocks
     private PrisonerHandler prisonerHandler;
+    
     Day currentDay;
     Integer currentDayNr;
 
@@ -43,7 +48,6 @@ public class PrisonerHandlerTest {
 
     @Before
     public void init() {
-        prisonerHandler = new PrisonerHandler(prisonerRepository, cellRepository, cellService, dayService, jobRepository);
     }
 
     @Test

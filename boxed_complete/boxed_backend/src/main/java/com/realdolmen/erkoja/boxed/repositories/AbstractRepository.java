@@ -56,7 +56,6 @@ public abstract class AbstractRepository<C, T>{
         if (c != null) {
             try {
                 em().merge(c);
-                commit();
             } catch (Exception ex) {
                 Logger.getLogger(AbstractRepository.class.getName()).log(Level.SEVERE, null, ex);
             }

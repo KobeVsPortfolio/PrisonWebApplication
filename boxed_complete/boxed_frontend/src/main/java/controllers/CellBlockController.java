@@ -4,9 +4,12 @@ import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import com.realdolmen.erkoja.boxed.dtos.CellDto;
 import com.realdolmen.erkoja.boxed.dtos.CrimeDto;
+import com.realdolmen.erkoja.boxed.dtos.DayDto;
 import com.realdolmen.erkoja.boxed.dtos.PrisonerDto;
 import com.realdolmen.erkoja.boxed.facades.CellFacade;
 import com.realdolmen.erkoja.boxed.facades.CrimeFacade;
+import com.realdolmen.erkoja.boxed.facades.DayFacade;
+import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class CellBlockController implements Serializable {
     private List<String> crimeNames;
     private String currentCrimeName;
     private List<CellDto> allCells;
+    private DayDto currentDay;
     
     @Inject
     private CellBlockFacade cellBlockFacade;
@@ -44,8 +48,15 @@ public class CellBlockController implements Serializable {
     @Inject
     private CrimeFacade crimeFacade;
     
+    @Inject
+    private PrisonFacade prisonFacade;
+    
+    @Inject
+    private DayFacade dayFacade;
+    
     @PostConstruct
     public void init() {
+        prisonFacade.generateDays();
         cellBlocks = cellBlockFacade.findAllCellBlocks();
         allCells = cellFacade.findAllCells();
         
@@ -113,7 +124,16 @@ public class CellBlockController implements Serializable {
     public void deletePrisonerInfo(){
         currentPrisoner = new PrisonerDto();
         }
+    
+        public DayDto getCurrentDay() {
+        currentDay = dayFacade.getCurrentDay();
+        return currentDay;
+    }
 
+    public void setCurrentDay(DayDto currentDay) {
+        this.currentDay = currentDay;
+    }
+    
     public String getCellBlockId() {
         return cellBlockId;
     }

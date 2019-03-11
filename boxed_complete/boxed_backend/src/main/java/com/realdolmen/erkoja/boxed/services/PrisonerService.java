@@ -7,7 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class PrisonerService {
-        @Inject
+    
+    @Inject
     private PrisonerRepository prisonerRepository;
     
     public PrisonerService() {

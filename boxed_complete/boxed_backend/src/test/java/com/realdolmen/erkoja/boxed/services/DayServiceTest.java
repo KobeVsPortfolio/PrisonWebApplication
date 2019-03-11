@@ -2,19 +2,22 @@ package com.realdolmen.erkoja.boxed.services;
 
 import com.realdolmen.erkoja.boxed.domain.Day;
 import com.realdolmen.erkoja.boxed.repositories.DayRepository;
+import java.io.Serializable;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DayServiceTest {
+public class DayServiceTest implements Serializable{
     
+    @InjectMocks
     private DayService dayService;
     
     @Mock
@@ -24,7 +27,6 @@ public class DayServiceTest {
     
     @Before
     public void init(){
-        dayService = new DayService(dayRepository, prisonerHandler);
     }
     
     
@@ -41,13 +43,5 @@ public class DayServiceTest {
     public void newDayTest(){
         dayService.newDay();
         verify(dayRepository, times(1)).save(Mockito.<Day>anyObject());
-        verify(dayRepository, times(1)).findHighestValue();
-        verify(prisonerHandler, times(1)).setCurrentDay(Mockito.<Day>anyObject());
-    }
-    
-    @Test
-    public void dayProceduresTest(){
-        dayService.dayProcedures();
-        verify(prisonerHandler, times(1)).handlePrisoners();
     }
 }

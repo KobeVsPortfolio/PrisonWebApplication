@@ -6,37 +6,31 @@ import com.realdolmen.erkoja.boxed.domain.Day;
 import com.realdolmen.erkoja.boxed.domain.Job;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import com.realdolmen.erkoja.boxed.repositories.CellRepository;
-import com.realdolmen.erkoja.boxed.repositories.JobRepository;
 import com.realdolmen.erkoja.boxed.repositories.PrisonerRepository;
+import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.Persistence;
 
-public class PrisonerHandler {
-
+public class PrisonerHandler implements Serializable{
+    
+    @Inject
     private PrisonerRepository prisonerRepository;
+    
+    @Inject
     private CellRepository cellRepository;
+    
+    @Inject
     private CellService cellService;
+    
+    @Inject
     private DayService dayService;
+    
     private Day currentDay;
-    private JobRepository jobRepository;
 
     public PrisonerHandler() {
-        prisonerRepository = new PrisonerRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
-        cellRepository = new CellRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
-        jobRepository = new JobRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
-        cellService = new CellService();
-        dayService = new DayService();
-       
     }
-
-    public PrisonerHandler(PrisonerRepository prisonerRepository, CellRepository cellRepository, CellService cellService, DayService dayService, JobRepository jobRepository) {
-        this.prisonerRepository = prisonerRepository;
-        this.cellRepository = cellRepository;
-        this.cellService = cellService;
-        this.dayService = dayService;
-        this.jobRepository = jobRepository;
-    }
-
+    
     public void handlePrisoners() {
         releasePrisoners();
         moveOutOfIsolation();

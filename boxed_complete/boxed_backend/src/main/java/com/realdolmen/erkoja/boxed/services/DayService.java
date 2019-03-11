@@ -2,21 +2,21 @@ package com.realdolmen.erkoja.boxed.services;
 
 import com.realdolmen.erkoja.boxed.domain.Day;
 import com.realdolmen.erkoja.boxed.repositories.DayRepository;
+import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.Persistence;
 
-public class DayService{
+public class DayService implements Serializable{
 
     private DayRepository dayRepository;
-    private PrisonerHandler prisonerHandler;
-
+    
     public DayService() {
         dayRepository = new DayRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
     }
     
-    public DayService(DayRepository dayRepository, PrisonerHandler prisonerHandler){
+    public DayService(DayRepository dayRepository){
         this.dayRepository = dayRepository;
-        this.prisonerHandler = prisonerHandler;
     }
     
     public Day getCurrentDay(){
@@ -27,11 +27,5 @@ public class DayService{
     
     public void newDay(){
         dayRepository.save(new Day());
-        prisonerHandler.setCurrentDay(dayRepository.findHighestValue());
-        dayProcedures();
-    }
-    
-    public void dayProcedures(){
-        prisonerHandler.handlePrisoners();
     }
 }

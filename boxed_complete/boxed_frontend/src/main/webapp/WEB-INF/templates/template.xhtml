@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 <h:head>
     <link rel="stylesheet" type="text/css" href="css/Prison.css"/>
@@ -9,6 +12,9 @@
 </h:head>
 <body>
 <b:navBar brand="Boxed" brandHref="prison" inverse="true">
+    <b:navbarLinks pull="right">
+        <b:navLink><h:outputText value="#{cellBlockController.currentDay.dayNr}"></h:outputText></b:navLink>
+    </b:navbarLinks>
 </b:navBar>
 <b:container fluid="true" style="height:600px; margin:20px;">
     <ui:insert name="pageContent"/>

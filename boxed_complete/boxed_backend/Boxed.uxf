@@ -56,7 +56,7 @@ name: String
     <panel_attributes>Guard
 --
 cellBlock: CellBlock
-Rank: String
+Grade: String
 --
 sendToIsolation(prisoner:Prisoner)
 
