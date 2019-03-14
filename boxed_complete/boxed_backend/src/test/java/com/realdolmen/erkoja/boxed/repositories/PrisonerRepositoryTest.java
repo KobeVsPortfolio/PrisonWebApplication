@@ -46,7 +46,9 @@ public class PrisonerRepositoryTest {
         Prisoner p = new Prisoner();
         p.setName("Jaak");
         p.setReleaseDate(700);
+        prisonerRepository.begin();
         prisonerRepository.save(p);
+        prisonerRepository.commit();
         assertEquals(entityManager.find(Prisoner.class, 4).getName(), "Jaak");
     }
 

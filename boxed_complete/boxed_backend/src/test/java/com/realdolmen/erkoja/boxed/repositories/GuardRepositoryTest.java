@@ -42,7 +42,9 @@ public class GuardRepositoryTest {
     public void saveGuard(){
         Guard g = new Guard();
         g.setName("Jan");
+        guardRepository.begin();
         guardRepository.save(g);
+        guardRepository.commit();
         assertEquals(entityManager.find(Guard.class, 4).getName(),"Jan");
     }
 

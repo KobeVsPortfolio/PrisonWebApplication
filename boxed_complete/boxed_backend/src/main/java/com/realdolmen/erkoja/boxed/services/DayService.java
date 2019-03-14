@@ -8,11 +8,11 @@ import javax.inject.Inject;
 import javax.persistence.Persistence;
 
 public class DayService implements Serializable{
-
+    
+    @Inject
     private DayRepository dayRepository;
     
     public DayService() {
-        dayRepository = new DayRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
     }
     
     public DayService(DayRepository dayRepository){

@@ -28,12 +28,11 @@ public abstract class AbstractRepository<C, T>{
         return em().find(entityClass,id);
     }
     
+    @Transactional
     public void save(C c) {
         if (c != null) {
             try {
-                begin();
                 em().persist(c);
-                commit();
             } catch (Exception ex) {
                 Logger.getLogger(AbstractRepository.class.getName()).log(Level.SEVERE, null, ex);
             }

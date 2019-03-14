@@ -2,6 +2,7 @@
 package com.realdolmen.erkoja.boxed.repositories;
 
 import com.realdolmen.erkoja.boxed.domain.Cell;
+import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,8 +48,11 @@ public class CellRepositoryTest {
         Cell c = new Cell();
         c.setCellNr("123");
         c.setSize(1);
+        c.setCellBlock(entityManager.find(CellBlock.class, "A"));
+        cellRepository.begin();
         cellRepository.save(c);
-        assertNotNull(entityManager.find(Cell.class, 4));
+        cellRepository.commit();
+        assertEquals(entityManager.find(Cell.class, 7).getCellNr(), "123");
         
     }
 
