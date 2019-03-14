@@ -4,10 +4,16 @@ import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
 import com.realdolmen.erkoja.boxed.dtos.CellDto;
 import com.realdolmen.erkoja.boxed.dtos.CrimeDto;
+import com.realdolmen.erkoja.boxed.dtos.DayDto;
 import com.realdolmen.erkoja.boxed.dtos.PrisonerDto;
+import com.realdolmen.erkoja.boxed.exceptions.CellFullException;
 import com.realdolmen.erkoja.boxed.facades.CellFacade;
 import com.realdolmen.erkoja.boxed.facades.CrimeFacade;
+import com.realdolmen.erkoja.boxed.facades.DayFacade;
+import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
+import com.realdolmen.erkoja.boxed.facades.PrisonerFacade;
 import java.io.Serializable;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,7 +25,6 @@ import javax.inject.Named;
 @ApplicationScoped
 public class CellBlockController implements Serializable {
 
-    
     private String cellBlockId;
     private List<CellDto> cellsA;
     private List<CellDto> cellsB;
@@ -34,34 +39,46 @@ public class CellBlockController implements Serializable {
     private List<String> crimeNames;
     private String currentCrimeName;
     private List<CellDto> allCells;
-    
+    private DayDto currentDay;
+    private List<CrimeDto> prisonerCrimes;
+
     @Inject
     private CellBlockFacade cellBlockFacade;
-    
+
     @Inject
     private CellFacade cellFacade;
-    
+
     @Inject
     private CrimeFacade crimeFacade;
+
+    @Inject
+    private PrisonFacade prisonFacade;
+
+    @Inject
+    private DayFacade dayFacade;
     
+    @Inject
+    private PrisonerFacade prisonerFacade;
+
     @PostConstruct
     public void init() {
+        prisonFacade.generateDays();
         cellBlocks = cellBlockFacade.findAllCellBlocks();
         allCells = cellFacade.findAllCells();
-        
+
         crimes = crimeFacade.findAll();
         crimeNames = new ArrayList<>();
-        
-        for(CrimeDto c : crimes){
+
+        for (CrimeDto c : crimes) {
             String name = c.getName();
             crimeNames.add(name);
         }
-        
+
         cellsA = cellBlocks.get(0).getCells();
         cellsB = cellBlocks.get(1).getCells();
         cellsC = cellBlocks.get(2).getCells();
         cellsD = cellBlocks.get(3).getCells();
-        
+
     }
 
     public String createStyle(CellDto c) {
@@ -71,48 +88,47 @@ public class CellBlockController implements Serializable {
             return "background-color: #5CB85C;";
         }
     }
-    
-    public void addPrisoner(String prisonerName, CellDto currentCell, String currentCrimeName){ 
-        List<CrimeDto> prisonerCrimes = new ArrayList<>();
-        Integer releaseDate = 0;
-        for(CrimeDto c : crimes){
-            if(c.getName() == currentCrimeName){
-                prisonerCrimes.add(c);
-                releaseDate = c.getPunishment();
-            }
-        }
-          currentPrisoner = new PrisonerDto(null, prisonerName, false, null, releaseDate, null);
-          currentPrisoner.setCrimes(prisonerCrimes);
-        
-        for(CellDto cell : allCells){
-            if(cell.getCellNr() == currentCell.getCellNr()){
-                currentCell = cell;
-            }
-        }
-        cellFacade.addPrisoner(currentPrisoner, currentCell);
-    }
-    
-    public void showPrisonerInfo(String prisonerName, String cellNr, String currentCrimeName){
+
+    public void addPrisoner(String prisonerName, Integer cellId, String currentCrimeName) throws CellFullException{
+        prisonerCrimes = new ArrayList<>();
         currentPrisoner = new PrisonerDto();
-        currentPrisoner.setName(prisonerName);
-        CellDto c = new CellDto();
-        c.setCellNr(cellNr);
-        currentPrisoner.setCell(c);
-        List<CrimeDto> prisonerCrimes = new ArrayList<>();
-        Integer releaseDate = 0;
-        for(CrimeDto cDto : crimes){
-            if(cDto.getName() == currentCrimeName){
-                prisonerCrimes.add(cDto);
-                releaseDate = cDto.getPunishment();
+        Integer releaseDate = dayFacade.getCurrentDay().getDayNr();
+        for (CrimeDto c : crimes) {
+            if (c.getName() == currentCrimeName) {
+                prisonerCrimes.add(c);
+                releaseDate = releaseDate + c.getPunishment();
             }
         }
+        currentPrisoner.setId(null);
+        currentPrisoner.setName(prisonerName);
         currentPrisoner.setReleaseDate(releaseDate);
         currentPrisoner.setCrimes(prisonerCrimes);
+        CellDto cell = cellFacade.findCellById(cellId);
+        prisonerFacade.addPrisoner(currentPrisoner, cell);
+        CellDto cellAfterSave = cellFacade.findCellById(cellId);
+        setCurrentCell(cellAfterSave);
+        
+        setCurrentCrimeName(null);
+        setPrisonerName(null);
+    }
+
+
+    public void deletePrisoner(PrisonerDto currentPrisoner, CellDto currentCell) {
+        if(currentCell.getPrisonerList() != null && currentCell.getPrisonerList().contains(currentPrisoner)){
+            prisonerFacade.deletePrisoner(currentPrisoner, currentCell);
+            CellDto cellAfterSave = cellFacade.findCellById(currentCell.getCellId());
+            setCurrentCell(cellAfterSave);
         }
-    
-    public void deletePrisonerInfo(){
-        currentPrisoner = new PrisonerDto();
-        }
+    }
+
+    public DayDto getCurrentDay() {
+        currentDay = dayFacade.getCurrentDay();
+        return currentDay;
+    }
+
+    public void setCurrentDay(DayDto currentDay) {
+        this.currentDay = currentDay;
+    }
 
     public String getCellBlockId() {
         return cellBlockId;
@@ -159,7 +175,7 @@ public class CellBlockController implements Serializable {
     }
 
     public void setCurrentCell(CellDto currentCell) {
-        this.currentCell = currentCell;
+        this.currentCell = cellFacade.findCellById(currentCell.getCellId());
     }
 
     public List<PrisonerDto> getPrisonerList() {

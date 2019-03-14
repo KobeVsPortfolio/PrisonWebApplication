@@ -1,7 +1,10 @@
 package controllers;
 
+import com.realdolmen.erkoja.boxed.domain.Day;
 import com.realdolmen.erkoja.boxed.dtos.CellBlockDto;
+import com.realdolmen.erkoja.boxed.dtos.DayDto;
 import com.realdolmen.erkoja.boxed.facades.CellBlockFacade;
+import com.realdolmen.erkoja.boxed.facades.DayFacade;
 import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +19,7 @@ import javax.inject.Named;
 public class PrisonController implements Serializable{
     
     private List<CellBlockDto> cellBlocks;
+    private DayDto currentDay;
     
     @Inject
     private PrisonFacade prisonFacade;
@@ -23,18 +27,25 @@ public class PrisonController implements Serializable{
     @Inject
     private CellBlockFacade cellBlockFacade;
     
-    private boolean generating;
-    
-    
-    
+    @Inject
+    private DayFacade dayFacade;
+
     @PostConstruct
     public void init(){
-        generating = false;
         cellBlocks = cellBlockFacade.findAllCellBlocks();
     }
 
-    public void toggleDayGeneration(){
-        prisonFacade.toggleTime(generating);
+    public void startDayGeneration(){
+        prisonFacade.generateDays();
+    }
+
+    public DayDto getCurrentDay() {
+        currentDay = dayFacade.getCurrentDay();
+        return currentDay;
+    }
+
+    public void setCurrentDay(DayDto currentDay) {
+        this.currentDay = currentDay;
     }
 
     public List<CellBlockDto> getCellBlocks() {
@@ -59,14 +70,6 @@ public class PrisonController implements Serializable{
 
     public void setCellBlockFacade(CellBlockFacade cellBlockFacade) {
         this.cellBlockFacade = cellBlockFacade;
-    }
-
-    public boolean isGenerating() {
-        return generating;
-    }
-
-    public void setGenerating(boolean generating) {
-        this.generating = generating;
     }
 
 }

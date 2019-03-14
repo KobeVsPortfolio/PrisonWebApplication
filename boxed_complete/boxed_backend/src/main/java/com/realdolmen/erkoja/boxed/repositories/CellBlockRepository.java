@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContextType;
 public class CellBlockRepository extends AbstractRepository<CellBlock,String> implements Serializable{
     
     @Produces
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
     
      public CellBlockRepository() {

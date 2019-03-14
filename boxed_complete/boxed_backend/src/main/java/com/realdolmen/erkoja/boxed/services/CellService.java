@@ -3,26 +3,29 @@ package com.realdolmen.erkoja.boxed.services;
 import com.realdolmen.erkoja.boxed.domain.Cell;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
 import com.realdolmen.erkoja.boxed.repositories.CellRepository;
+import com.realdolmen.erkoja.boxed.repositories.PrisonerRepository;
+import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Persistence;
+import javax.inject.Inject;
 
 
-public class CellService{
+public class CellService implements Serializable{
     
+    @Inject
     private CellRepository cellRepository;
+    
+    @Inject
+    private PrisonerRepository prisonerRepository;
 
     public CellService() {
-        this.cellRepository = new CellRepository(Persistence.createEntityManagerFactory("BoxedPersistenceUnit").createEntityManager());
     }
-    
-    
 
     public CellService(CellRepository cellRepository) {
         this.cellRepository = cellRepository;
     }
     
     public void addPrisoner(Prisoner prisoner, Cell cell){
-        if(cell.getPrisonerList().size()< cell.getSize()){
+        if(cell.getPrisonerList().size() < cell.getSize()){
             List<Prisoner> prisonerList = cell.getPrisonerList();
             prisonerList.add(prisoner);
             cell.setPrisonerList(prisonerList);
@@ -41,5 +44,9 @@ public class CellService{
     
     public List<Cell> findAllCells() {
         return cellRepository.findAll();
+    }
+    
+    public Cell findCellById(Integer id){
+        return cellRepository.findById(id);
     }
 }

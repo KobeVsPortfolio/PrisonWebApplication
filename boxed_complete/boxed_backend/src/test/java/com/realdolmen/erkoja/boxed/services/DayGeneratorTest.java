@@ -7,13 +7,15 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DayGeneratorTest {
-
+    
+    @InjectMocks
     private DayGenerator dayGenerator;
     
     @Mock
@@ -21,7 +23,6 @@ public class DayGeneratorTest {
     
     @Before
     public void init(){
-        dayGenerator = new DayGenerator(dayService);
     }
     
     @Ignore

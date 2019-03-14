@@ -13,9 +13,7 @@ import com.realdolmen.erkoja.boxed.mappers.PrisonerDTOMapper;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 public class CellFacade implements Serializable {
 
@@ -31,9 +29,15 @@ public class CellFacade implements Serializable {
                 .map(cell -> new CellMapper().apply(cell))
                 .sorted((c1, c2) -> c1.getCellNr().compareTo(c2.getCellNr()))
                 .collect(Collectors.toList());
-    } 
+    }
     
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public CellDto findCellById(Integer id){
+       Cell cell = cellService.findCellById(id);
+       CellMapper cm = new CellMapper();
+       CellDto c = cm.apply(cell);
+       return c;
+    }
+    
     public void addPrisoner(PrisonerDto pDto, CellDto cDto){
         CellDTOMapper cdm = new CellDTOMapper();
         PrisonerDTOMapper pdm = new PrisonerDTOMapper();

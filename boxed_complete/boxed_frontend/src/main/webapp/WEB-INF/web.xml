@@ -23,5 +23,8 @@
         <param-name>BootsFaces_THEME</param-name>
         <param-value>superhero</param-value>
     </context-param>
-
+    <context-param>
+        <param-name>net.bootsfaces.blockUI</param-name>
+        <param-value>true</param-value>
+    </context-param>
 </web-app>

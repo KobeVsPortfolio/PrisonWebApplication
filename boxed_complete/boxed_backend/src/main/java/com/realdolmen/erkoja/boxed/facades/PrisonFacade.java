@@ -21,5 +21,13 @@ public class PrisonFacade implements Serializable {
             return true;
         }
     }
+    
+    public void generateDays(){
+        dayGenerator.generateDays();   
+    }
+    
+    public void stopGenerating(){
+        dayGenerator.stopCounting();
+    }
 
 }

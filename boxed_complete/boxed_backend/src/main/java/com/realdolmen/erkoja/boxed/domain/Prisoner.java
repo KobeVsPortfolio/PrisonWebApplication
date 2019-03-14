@@ -22,7 +22,8 @@ public class Prisoner extends Person {
     @OneToOne
     private Job job;
     
-    @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
     @Column(nullable = false)
     private List<Crime> crimes;
     
@@ -32,6 +33,7 @@ public class Prisoner extends Person {
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne
     private Cell cell;
+    
     private Integer jobDuration;
 
     public Prisoner() {

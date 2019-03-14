@@ -46,9 +46,9 @@ public class Cell {
     }
     
       public Cell(Integer cellId, String cellNr, Integer size, boolean isolationCell) {
+        this.cellId = cellId;
         this.cellNr = cellNr;
         this.size = size;
-        this.cellBlock = cellBlock;
         this.isolationCell = isolationCell;
     }
     

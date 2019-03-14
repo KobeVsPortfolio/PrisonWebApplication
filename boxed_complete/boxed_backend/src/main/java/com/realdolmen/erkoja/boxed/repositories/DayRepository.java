@@ -7,11 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class DayRepository extends AbstractRepository<Day, Integer> implements Serializable{
-    
+public class DayRepository extends AbstractRepository<Day, Integer> implements Serializable {
+
     @Produces
     @PersistenceContext
     private EntityManager em;
+
+    public DayRepository() {
+        super(Day.class);
+    }
 
     public DayRepository(EntityManager em) {
         super(Day.class);
