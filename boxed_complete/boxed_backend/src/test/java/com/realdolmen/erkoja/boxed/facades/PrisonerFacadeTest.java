@@ -2,6 +2,8 @@
 package com.realdolmen.erkoja.boxed.facades;
 
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
+import com.realdolmen.erkoja.boxed.dtos.CellDto;
+import com.realdolmen.erkoja.boxed.dtos.CrimeDto;
 import com.realdolmen.erkoja.boxed.dtos.PrisonerDto;
 import com.realdolmen.erkoja.boxed.mappers.PrisonerMapper;
 import com.realdolmen.erkoja.boxed.services.PrisonerService;
@@ -19,9 +21,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class PrisonerFacadeTest {
     
     @Mock
-     private PrisonerService prisonerService;
+    private PrisonerService prisonerService;
+    
     @Mock
     private PrisonerMapper prisonerMapper;
+    
     @InjectMocks
     private PrisonerFacade prisonerFacade;
 
@@ -33,11 +37,6 @@ public class PrisonerFacadeTest {
         prisoners.add(prisoner);
         List<PrisonerDto> result = prisonerFacade.findAll();
         when(prisonerService.findAll()).thenReturn(prisoners);
-        assertNotNull(result);
-                
-                
-        
-        
+        assertNotNull(result);   
     }
-   
 }

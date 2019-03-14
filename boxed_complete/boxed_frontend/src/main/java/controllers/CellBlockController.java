@@ -13,7 +13,6 @@ import com.realdolmen.erkoja.boxed.facades.DayFacade;
 import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
 import com.realdolmen.erkoja.boxed.facades.PrisonerFacade;
 import java.io.Serializable;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,7 +23,7 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public class CellBlockController implements Serializable {
-
+    
     private String cellBlockId;
     private List<CellDto> cellsA;
     private List<CellDto> cellsB;
@@ -82,14 +81,31 @@ public class CellBlockController implements Serializable {
     }
 
     public String createStyle(CellDto c) {
-        if (c.getPrisonerList().size() != 0) {
-            return "background-color: #D9534F;";
+        if (c.getPrisonerList().size() < c.getSize()) {
+            return "success";
         } else {
-            return "background-color: #5CB85C;";
+            return "danger";
         }
+    }
+    
+    
+    public String spaceLeft(CellDto c){
+        if(c != null){
+        int left = c.getSize();
+        if(c.getPrisonerList() != null){
+        int leftAfter = c.getSize()-c.getPrisonerList().size();
+        if(leftAfter == 0){
+        return "<div style='width: 100%; height: 100%; border: solid black 1px;background-color: #C9302C'>"+String.valueOf(leftAfter)+"</div>";
+        }
+        return "<div style='width: 100%; height: 100%; border: solid black 1px;background-color: #449D44'>"+String.valueOf(leftAfter)+"</div>";
+        }
+        return "<div style='width: 100%; height: 100%; border: solid black 1px;background-color: #449D44'>"+String.valueOf(left)+"</div>";
+        }
+        return null;
     }
 
     public void addPrisoner(String prisonerName, Integer cellId, String currentCrimeName) throws CellFullException{
+        try{
         prisonerCrimes = new ArrayList<>();
         currentPrisoner = new PrisonerDto();
         Integer releaseDate = dayFacade.getCurrentDay().getDayNr();
@@ -107,7 +123,9 @@ public class CellBlockController implements Serializable {
         prisonerFacade.addPrisoner(currentPrisoner, cell);
         CellDto cellAfterSave = cellFacade.findCellById(cellId);
         setCurrentCell(cellAfterSave);
-        
+        }catch(CellFullException c){
+            spaceLeft(cellFacade.findCellById(cellId));
+        }
         setCurrentCrimeName(null);
         setPrisonerName(null);
     }
@@ -156,6 +174,14 @@ public class CellBlockController implements Serializable {
 
     public List<CellDto> getCellsC() {
         return cellsC;
+    }
+
+    public List<CrimeDto> getPrisonerCrimes() {
+        return prisonerCrimes;
+    }
+
+    public void setPrisonerCrimes(List<CrimeDto> prisonerCrimes) {
+        this.prisonerCrimes = prisonerCrimes;
     }
 
     public void setCellsC(List<CellDto> cellsC) {

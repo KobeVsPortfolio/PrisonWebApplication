@@ -1,6 +1,7 @@
 package com.realdolmen.erkoja.boxed.facades;
 
 import com.realdolmen.erkoja.boxed.services.DayGenerator;
+import com.realdolmen.erkoja.boxed.services.PrisonerHandler;
 import java.io.Serializable;
 import javax.inject.Inject;
 
@@ -11,7 +12,7 @@ public class PrisonFacade implements Serializable {
 
     @Inject
     private DayGenerator dayGenerator;
-
+               
     public boolean toggleTime(boolean timeOn) {
         if (timeOn == true) {
             dayGenerator.stopCounting();
