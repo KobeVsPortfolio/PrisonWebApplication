@@ -10,10 +10,11 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -49,6 +50,8 @@ public class PrisonerServiceTest {
         assertNotNull(c1.getPrisonerList());
         assertEquals(c1.getPrisonerList().size(), 1);
         assertEquals(p1.getCell(), c1);
+        assertTrue(c1.getPrisonerList().contains(p1));
+        verify(prisonerRepository, times(1)).save(p1);
     }
     
     @Test(expected = CellFullException.class)
@@ -58,6 +61,15 @@ public class PrisonerServiceTest {
         prisonerService.addPrisonerToCell(p3, c1);
         assertEquals(c1.getPrisonerList().size(), 2);
         assertEquals(p1.getCell(), c1);
+    }
+    
+    @Test
+    public void deletePrisonerFromCellTest() throws CellFullException{
+        prisonerService.addPrisonerToCell(p1, c1);
+        assertNotNull(c1.getPrisonerList().contains(p1));
+        prisonerService.deletePrisonerFromCell(p1, c1);
+        assertFalse(c1.getPrisonerList().contains(p1));
+        verify(prisonerRepository, times(1)).delete(p1.getId());
     }
     
     @Test

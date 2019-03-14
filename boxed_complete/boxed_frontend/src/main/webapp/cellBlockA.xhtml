@@ -29,7 +29,7 @@
                             <b:panelGrid columns="4" size="lg">
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsA.subList(0, 15)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                        <b:commandButton value="#{cell.cellNr}" look="#{cellBlockController.createStyle(cell)}" style="width:100%;">
                                             <f:param name="blockui.disabled" value="true"/>
                                             <f:ajax
                                                 event="click"
@@ -41,7 +41,7 @@
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsA.subList(15, 30)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                        <b:commandButton value="#{cell.cellNr}" look="#{cellBlockController.createStyle(cell)}" style="width:100%;">
                                             <f:param name="blockui.disabled" value="true"/>
                                             <f:ajax
                                                 event="click"
@@ -53,7 +53,7 @@
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsA.subList(30, 45)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                        <b:commandButton value="#{cell.cellNr}" look="#{cellBlockController.createStyle(cell)}" style="width:100%;">
                                             <f:param name="blockui.disabled" value="true"/>
                                             <f:ajax
                                                 event="click"
@@ -65,7 +65,7 @@
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="form-group col-3">
                                     <ui:repeat value="#{cellBlockController.cellsA.subList(45, 60)}" var="cell">
-                                        <b:commandButton value="#{cell.cellNr}" style="width:100%; #{cellBlockController.createStyle(cell)}">
+                                        <b:commandButton value="#{cell.cellNr}" look="#{cellBlockController.createStyle(cell)}" style="width:100%;">
                                             <f:param name="blockui.disabled" value="true"/>
                                             <f:ajax
                                                 event="click"
@@ -87,6 +87,7 @@
                                             <th scope="col" class="text-center">Cell</th>
                                             <th scope="col" class="text-center">Size</th>
                                             <th scope="col" class="text-center">Isolation Cell</th>
+                                            <th style="width: 50px" scope="col" class="text-center">Available</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,6 +95,7 @@
                                             <td><h:outputText value="#{cellBlockController.currentCell.cellNr}"/></td>
                                             <td><h:outputText value="#{cellBlockController.currentCell.size}"/></td>
                                             <td><h:outputText value="#{cellBlockController.currentCell.isolationCell}"/></td>
+                                            <td style="padding: 2px; height:20px; line-height: 34px;"><h:outputText escape="false" value="#{cellBlockController.spaceLeft(cellBlockController.currentCell)}"/></td>
                                         </tr>
                                     </tbody>
                                     <thead >
@@ -101,18 +103,31 @@
                                             <th scope="col" class="text-center">Prisoner</th>
                                             <th scope="col" class="text-center">Crime</th>
                                             <th scope="col" class="text-center">Day of Release</th>
+                                            <th style="width: 50px; margin: 0px;" scope="col" class="text-center">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <ui:repeat value="#{cellBlockController.currentCell.prisonerList}" var="prisoner">
                                             <tr>
-                                                <td><h:outputText value="#{prisoner.name}"/></td>
+                                                <td>
+                                                    <h:outputText value="#{prisoner.name}"/>
+                                                </td>
                                                 <td>
                                                     <ui:repeat value="#{prisoner.crimes}" var="crime">
                                                         <h:outputText value="#{crime.name}"/>
                                                     </ui:repeat>
                                                 </td>
                                                 <td><h:outputText value="#{prisoner.releaseDate}"/></td>
+                                                <td style="padding: 2px; width: 50px; height:20px;">
+                                                    <b:commandButton look="danger" style="width: 100%; height: 100%; border: solid black 1px">
+                                                        <b:iconAwesome name="user-times"></b:iconAwesome>
+                                                        <f:ajax
+                                                            execute="@form"
+                                                            listener="#{cellBlockController.deletePrisoner(prisoner, cellBlockController.currentCell)}"
+                                                            render="cellinfo"> 
+                                                        </f:ajax>
+                                                    </b:commandButton>
+                                                </td>
                                             </tr>
                                         </ui:repeat>
                                     </tbody>
@@ -125,8 +140,8 @@
                             <h:form id="add">
                                 <table class="table table-bordered">
                                     <tr>
-                                        <td align="center" style="line-height: 40px;">Name</td>
-                                        <td>    
+                                        <th align="center" class="text-center" style="line-height: 55px;">Name</th>
+                                        <td style="padding-bottom: 0px; padding-top: 13px">    
                                             <b:inputText placeholder="Name" styleClass="form-control" required="true" value="#{cellBlockController.prisonerName}">
                                                 <f:facet name="prepend">
                                                     <b:icon name="user" />
@@ -134,8 +149,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="center" style="line-height: 40px;">Crime</td>
-                                        <td>
+                                        <th class="text-center" align="center" style="line-height: 55px;">Crime</th>
+                                        <td style="padding-bottom: 0px; padding-top: 13px">
                                             <b:selectOneMenu required="true" value="#{cellBlockController.currentCrimeName}">
                                                 <f:facet name="prepend">
                                                     <b:iconAwesome name="caret-down"/>
@@ -146,8 +161,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="center" style="line-height: 40px;">Cell</td>
-                                        <td><b:inputText styleClass="form-control" value="#{cellBlockController.currentCell.cellNr}" disabled="true"></b:inputText>
+                                        <th class="text-center" align="center" style="line-height: 55px;">Cell</th>
+                                        <td style="padding-bottom: 0px; padding-top: 13px"><b:inputText required="true" styleClass="form-control" value="#{cellBlockController.currentCell.cellNr}" disabled="true"></b:inputText>
                                         </td>
                                     </tr>
                                 </table>
@@ -155,13 +170,6 @@
                                     <f:ajax
                                         execute="@form"
                                         listener="#{cellBlockController.addPrisoner(cellBlockController.prisonerName, cellBlockController.currentCell.cellId, cellBlockController.currentCrimeName)}"
-                                        render="cellinfo add"> 
-                                    </f:ajax>
-                                </b:commandButton>
-                                <b:commandButton style="width: 100%" value="Delete Prisoner" styleClass="btn-warning">
-                                    <f:ajax
-                                        execute="@form"
-                                        listener="#{cellBlockController.deletePrisoner()}"
                                         render="cellinfo add"> 
                                     </f:ajax>
                                 </b:commandButton>

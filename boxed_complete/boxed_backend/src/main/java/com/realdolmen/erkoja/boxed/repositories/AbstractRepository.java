@@ -39,10 +39,9 @@ public abstract class AbstractRepository<C, T>{
         }
     }
     
+    @Transactional
     public void delete(T id) {
-        begin();
         em().remove(em().find(entityClass, id));
-        commit();
     }
     
     public List<C> findAll(){

@@ -5,6 +5,7 @@ import com.realdolmen.erkoja.boxed.domain.CellBlock;
 import com.realdolmen.erkoja.boxed.domain.Day;
 import com.realdolmen.erkoja.boxed.domain.Job;
 import com.realdolmen.erkoja.boxed.domain.Prisoner;
+import com.realdolmen.erkoja.boxed.facades.PrisonFacade;
 import com.realdolmen.erkoja.boxed.repositories.CellRepository;
 import com.realdolmen.erkoja.boxed.repositories.PrisonerRepository;
 import java.io.Serializable;
@@ -25,6 +26,9 @@ public class PrisonerHandler implements Serializable{
     
     @Inject
     private DayService dayService;
+    
+    @Inject
+    private PrisonFacade prisonFacade;
     
     private Day currentDay;
 

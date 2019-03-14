@@ -7,6 +7,7 @@ import com.realdolmen.erkoja.boxed.repositories.PrisonerRepository;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import javax.inject.Inject;
 
 public class PrisonerService implements Serializable {
@@ -44,9 +45,9 @@ public class PrisonerService implements Serializable {
     }
     
     public void deletePrisonerFromCell(Prisoner prisoner, Cell cell){
-        if(cell.getPrisonerList() != null && cell.getPrisonerList().contains(prisoner)){
-            prisonerList = cell.getPrisonerList();
-            prisonerList.remove(prisoner);
+        if(cell.getPrisonerList() != null && prisoner != null){
+            List<Prisoner> prisonerOriginalList = cell.getPrisonerList();
+            prisonerList = prisonerOriginalList.stream().filter(p -> p.getId() != prisoner.getId()).collect(toList());
             cell.setPrisonerList(prisonerList);
             prisonerRepository.delete(prisoner.getId());
         }
