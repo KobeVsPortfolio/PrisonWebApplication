@@ -27,9 +27,6 @@ public class PrisonerHandler implements Serializable{
     @Inject
     private DayService dayService;
     
-    @Inject
-    private PrisonFacade prisonFacade;
-    
     private Day currentDay;
 
     public PrisonerHandler() {
